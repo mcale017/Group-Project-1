@@ -1,0 +1,50 @@
+.container {
+    margin: auto;
+    height: 700px;
+    background-color: rgb(116, 82, 11);
+}
+
+#search-line {
+    text-align: center;
+    align-content: center;
+}
+
+#image-1 {
+   margin-left: 330px;
+   background-color: white;
+   padding: 20px;
+   width: 200px;
+   height: 150px;
+   text-align: center;
+}
+
+#image-2 {
+    position:relative;
+    left: 668px;
+    top: -145px;
+    background-color: white;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+    text-align: center;
+    margin-right: 270px;
+    margin-top: -20px;  
+}
+
+.image-gallery-top {
+    position:relative;
+    left: 370px;  
+}
+
+.image-gallery-bottom {
+    position:relative;
+    left: 370px;
+}
+
+.stages {
+    background-color: white;
+    padding: 15px;
+    align-content: center;
+    position: relative;
+    left: 550px;
+}
