@@ -7,158 +7,211 @@
 
 .container {
     width: 1500px;
-    height: 700px;
+    height: 900px;
     background: linear-gradient(red, yellow, green);
     margin-bottom: 20px;
-    margin-top: 10px;
     padding-left: 40px;
     padding-right: 40px;
 }
  
-p {
-    text-align: center;
-    font-size: 20px;
-}
+
 
 h1 {
     text-align: center;
     font-size: 80px;
 }
 
-#image-left {
+#userImageLeft {
     position: relative;
     left: 290px;
+    bottom: 100px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
 }
 
-#image-right {
+#userImageRight {
     float: right;
     position: relative;
     left: 800px;
-    bottom: 250px;
+    bottom: 350px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
 }
 
-#search-area-left {
+ #textSearchA {
+    width: 214px;
+    height: 35px;
     position: absolute;
-    bottom: 205px;
+    bottom: 300px;
     left: 304px;
-    background-color: white;
-    width: 254px;
-    border-style: solid;
-    border-width: 3px;
-   
-}
- #label-left {
-   position: absolute;
-   bottom: 200px;
-   left: 396px;
-   color: black;
-   font-size: 20px;
-   z-index: 10;
-   font-style:italic;
-   font-family:initial;
- }
+} 
 
- #search-area-right {
+.input-group-btnA {
     position: absolute;
-    bottom: 205px;
-    left: 896px;
-    background-color: white;
-    width: 254px;
-    border-style: solid;
-    border-width: 3px;
-
- }
-
- #label-right {
-   position: absolute;
-   bottom: 200px;
-   left: 987px;
-   color: black;
-   font-size: 20px;
-   z-index: 10;
-   font-style:italic;
-   font-family: initial; 
- }
-
- .submit-button-left {
-     background-color: white;
-     padding: 15px;
-     border-radius: 100%;
-     border-style: solid;
-     border-width: 3px;
-     position:absolute;
-     bottom: 140px;
-     left: 380px;
-     font-style:italic;
-     color: black;
-     font-style:italic;
-     font-family: initial; 
-     font-weight:bolder;
- }
-
- .submit-button-right {
-    background-color: white;
-    padding: 15px;
-    border-radius: 100%;
-    border-style: solid;
-    border-width: 3px;
-    position:absolute;
-    bottom: 140px;
-    left: 972px;
-    font-style:italic;
-    color: black;
-    font-style:italic;
-    font-family: initial; 
-    font-weight:bolder;
- }
-
-#b1 {
-    background-color: white;
-    font-size: 35px;
-    align-content: center;
-    position: absolute;
-    bottom: 15px;
-    left: 338px;
-    padding: 30px;
-    border-style: solid;
-    border-width: 3px;
+    bottom: 300px; 
+    left: 515px; 
 }
 
-#b2 {
-    background-color: white;
-    font-size: 35px;
-    text-align: center;
+#textSearchB {
+    width: 214px;
+    height: 35px;
     position: absolute;
-    bottom: 15px;
-    left: 932px;
-    padding: 30px;
-    border-style: solid;
-    border-width: 3px;
+    bottom: 280px;
+    left: 304px;
+}
 
+.input-group-btnB {
+    position: absolute;
+    bottom: 280px; 
+    left: 515px; 
+}
 
+#textSearchC {
+    width: 214px;
+    height: 35px;
+    position: absolute;
+    bottom: 340px;
+    left: 895px;
+}
+
+.input-group-btnC {
+    position: absolute;
+    bottom: 340px; 
+    left: 1108px; 
+}
+
+#textSearchD {
+    width: 214px;
+    height: 35px;
+    position: absolute;
+    bottom: 280px;
+    left: 895px;
+}
+
+.input-group-btnD {
+    position: absolute;
+    bottom: 280px; 
+    left: 1108px; 
+    } 
     
+     .btn-group {
+         text-align: center;
+         
+     }
+    
+    #map1 {
+        background-color: white;
+        font-size: 20px;
+        height: 150px;
+        width: 150px;
+        position: absolute;
+        left: 50px;
+        top: -100px;
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+    
+    }
+    
+    #map2 {
+        background-color: white;
+        font-size: 20px;
+        height: 150px;
+        width: 150px;
+        position: absolute;
+        top: -100px;
+        left: 345px;
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+        
+        
+    }
+    
+    #map3 {
+        background-color: white;
+        font-size: 20px;
+        height: 150px;
+        width: 150px;
+        position: absolute;
+        top: -100px;
+        left: 645px;
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+    }
+    
+    #map4 {
+        background-color: white;
+        font-size: 20px;
+        height: 150px;
+        width: 150px;
+        position: absolute;
+        top: -100px;
+        left: 935px;
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+        
+    }
+    
+    #map5 {
+        background-color: white;
+        font-size: 20px;
+        height: 150px;
+        width: 150px;
+        position: absolute;
+        top: -100px;
+        left: 1223px;
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+    }
+
+    .userFormLeft {
+        width: 225px;
+        position: absolute;
+        left: 80px;
+        bottom: 360px;
+    }
+   
+    .userFormRight {
+        width: 225px;
+        position: absolute;
+        left: 1215px;
+        bottom: 360px;
+    }
+
+    .winsLeft {
+        width: 75px;
+        position: absolute;
+        bottom: 210px;
+        left: 80px;
 }
 
-#b3 {
-    background-color: white;
-    font-size: 35px;
-    text-align: center;
-    position: absolute;
-    bottom: -130px;
-    left: 338px;
-    padding: 30px;
-    border-style: solid;
-    border-width: 3px;
+    .lossesLeft {
+        width: 75px;
+        position: absolute;
+        bottom: 145px;
+        left: 80px;
 }
 
-#b4 {
-    background-color: white;
-    font-size: 35px;
-    text-align: center;
-    position: absolute;
-    left: 932px;
-    bottom: -130px;
-    padding: 30px;
-    border-style: solid;
-    border-width: 3px;
+    .winsRight {
+        width: 75px;
+        position: absolute;
+        bottom: 210px;
+        left: 1362px;
 }
+
+    .lossesRight {
+        width: 75px;
+        position: absolute;
+        bottom: 145px;
+        left: 1362px;
+}
+
+
+
+ 
