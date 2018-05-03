@@ -535,6 +535,12 @@ $(document).ready(function () {
             else {
                 $("#image-right").attr("fear", 10);
             }
+            
+            // Trial
+
+            var player2Buttons = [];
+            
+
         }).fail(function (jqXHR, textStatus) {
             console.error(textStatus)
         });
