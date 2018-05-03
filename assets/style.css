@@ -212,6 +212,20 @@ h1 {
         left: 1362px;
 }
 
+#chooseBattleground {
+        width: 330px;
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+        background-color: white;
+        padding: 5px;
+        position: absolute;
+        bottom: -120px;
+        left: 600px;
+        text-align: center;
+
+}
+
 
 
  
