@@ -29,50 +29,37 @@
             <div class="col-lg-4 col-lg-offset-1">
                 <div class="thumbnail">
                     <img src="assets/images/chocolate.jpg" alt="Player 1" id="image-left">
+                    <br>
                     <progress id="health-left" value="100" max="100"></progress>
                     <div id="caption-left" class="caption">
-                        <div>
-                            <label for="player1-name-submit">Player 1</label>
-                            <br>
-                            <input type="text" id="player1-name-submit" class="form-control" placeholder="Enter your name...">
-                            <button class="btn btn-primary" type="button" id="add-player1">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
+                        <div class="input-group">
+                            <input aria-describedby="add-player1" placeholder="Enter your name..." type="text" class="form-control" id="player1-name-submit">
+                            <span class="input-group-btn"><button class="btn btn-primary" type="button" id="add-player1"><span class="glyphicon glyphicon-search"></span></button></span>
                         </div>
-                        <label for="search-area-left"></label>
-                        <input type="text" placeholder="Search the internet" class="form-control" id="textSearchA" />
-                        <!-- Changed search ID-->
                         <br>
-                        <input type="text" class="form-control" placeholder="OR...Choose your own image" id="textSearchB" />
-                        <!-- Changed search ID-->
-                        <button class="btn btn-primary" type="button" id="submit-button-left">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
+                        <div class="input-group">
+                            <input aria-describedby="submit-button-left" placeholder="Search online" type="text" class="form-control" id="search-area-left">
+                            <span class="input-group-btn"><button class="btn btn-primary" type="button" id="submit-button-left"><span class="glyphicon glyphicon-search"></span></button></span>
+                        </div>
+                        <br>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-lg-offset-2">
                 <div class="thumbnail">
                     <img src="assets/images/restaraunt.jpg" alt="Player 2" id="image-right">
+                    <br>
                     <progress id="health-right" value="100" max="100"></progress>
                     <div id="caption-right" class="caption">
-                        <div>
-                            <label for="player2-name-submit">Player 2</label>
-                            <br>
-                            <input type="text" id="player2-name-submit" class="form-control" placeholder="Enter your name...">
-                            <button class="btn btn-primary" type="button" id="add-player2">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
+                        <div class="input-group">
+                            <input aria-describedby="add-player2" placeholder="Enter your name..." type="text" class="form-control" id="player2-name-submit">
+                            <span class="input-group-btn"><button class="btn btn-primary" type="button" id="add-player2"><span class="glyphicon glyphicon-search"></span></button></span>
                         </div>
-                        <label for="search-area-right"></label>
-                        <input type="text" placeholder="Search the internet" class="form-control" id="textSearchC" />
-                        <!-- Changed search ID-->
                         <br>
-                        <input type="text" class="form-control" placeholder="OR...Choose your own image" id="textSearchD" />
-                        <!-- Changed search ID-->
-                        <button class="btn btn-primary" type="button" id="submit-button-right">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
+                        <div class="input-group">
+                            <input aria-describedby="submit-button-right" placeholder="Search online" type="text" class="form-control" id="search-area-right">
+                            <span class="input-group-btn"><button class="btn btn-primary" type="button" id="submit-button-right"><span class="glyphicon glyphicon-search"></span></button></span>
+                        </div>
                         <br>
                     </div>
                 </div>
