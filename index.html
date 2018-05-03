@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="C:/Users/terry/Documents/Project/Group-Project-1/assets/style.css">
+    <script type="text/javascript" src="C:/Users/terry/Documents/Project/Group-Project-1/assets/javascript.js"></script>
+    <script type="text/javascript" src="C:/Users/terry/Documents/Project/Group-Project-1/assets/javascript.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+    <title>Face Off</title>
+</head>
+
+
+
+    <div class="jumbotron">
+        <h1>FACE OFF!</h1>
+        <p>How to play the game
+            <br> Step 1: Select your preferred background from the options below
+            <br>
+        </p>
+    </div> 
+    <div class = "container">
+        <div class="row">
+            <br>
+            <div class="col-lg-3">
+                <img src="images/chocolate.jpg" alt="image of chocolates" height="250" width="250" id="image-left">
+                <img src="images/restaraunt.jpg" alt="image of restaraunt" height="250" width="250" id="image-right">
+                <form action="/action_page">
+                    <label for="search" id="label-left">Search</label>
+                    <input type="text" name="search" id="search-area-left">
+                    <label for="search" id="label-right">Search</label>
+                    <input type="text" name="search" id="search-area-right">
+                </form>
+                <button class="submit-button-left">SUBMIT</button>
+                <button class="submit-button-right">SUBMIT</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="btn-group-1" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default" id="b1">Back 1</button>
+                    <button type="button" class="btn btn-default" id="b2">Back 2</button>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="btn-group-2" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" id="b3">Back 3</button>
+                            <button type="button" class="btn btn-default" id="b4">Back 4</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</html>
