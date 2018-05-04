@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // Functions to generate buttons to choose an image file and upload that image file to use in this app
     selectImageLeft();
 
     loadImageFileAsURLLeft();
@@ -627,10 +628,31 @@ $(document).ready(function () {
             console.error(textStatus)
         })
     }
+
+    $("#action-buttons-left").on("click", ".action-button-left", function(event) {
+        if (player1State === true) {
+            var player1Action = $(this).attr("action-value");
+            console.log(player1Action);
+    
+            switchActionState();
+        } else {
+            console.log("It's not your turn");
+        }
+    })
+
+    $("#action-buttons-right").on("click", ".action-button-right", function(event) {
+        if (player2State === true) {
+            var player2Action = $(this).attr("action-value");
+            console.log(player2Action);
+    
+            switchActionState();
+        } else {
+            console.log("It's not your turn");
+        }
+    })
 })
 
-// Uploading images part of the code
-
+// Functions that upload images from chosen files
 function selectImageLeft() {
     var imageFileToLoad = document.createElement("input");
     imageFileToLoad.type = "file";
@@ -709,4 +731,19 @@ function ShuffleArray(array) {
     }
 
     return array;
+}
+
+// Function that will switch action-state of each player
+var player1State = true;
+var player2State = false;
+
+function switchActionState() {
+    if (player1State === true && player2State === false) {
+        player1State = false;
+        player2State = true;
+    }
+    else if (player1State === false && player2State === true) {
+        player1State = true;
+        player2State = false;
+    }
 }
