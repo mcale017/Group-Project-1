@@ -18,11 +18,12 @@
 <body>
     <div class="jumbotron">
         <div class="container text-center">
-            <h1>FACE OFF!</h1>
+            <h1 id="announcement">FACE OFF!</h1>
+            <h3 id=subAnnouncement></h3>
         </div>
     </div>
     <br>
-    <div class="container">
+    <div class="container background-settings">
         <div class="row">
             <div class="col-lg-4 col-lg-offset-1">
                 <div class="thumbnail">
@@ -76,18 +77,6 @@
         <br>
         <!-- Map buttons -->
         <div class="row">
-            <div class="col-lg-12">
-                <div class="btn-group">
-                    <div id="map1"></div>
-                    <div id="map2"></div>
-                    <div id="map3"></div>
-                    <div id="map4"></div>
-                    <div id="map5"></div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
             <div class="col-lg-6">
                 <!-- move this up to images -->
                 <div id="player1-name"></div>
@@ -113,11 +102,14 @@
         <br>
         <div class="row">
             <div class="col-lg-12 text-center">
-                <button type="button" class="btn btn-default btn-map" id="map1">Map 1</button>
-                <button type="button" class="btn btn-default btn-map" id="map2">Map 2</button>
-                <button type="button" class="btn btn-default btn-map" id="map3">Map 3</button>
-                <button type="button" class="btn btn-default btn-map" id="map4">Map 4</button>
-                <button type="button" class="btn btn-default btn-map" id="map5">Map 5</button>
+                <button type="button" class="btn btn-default btn-map" id="mapButton1">PROM</button>
+                <button type="button" class="btn btn-default btn-map" id="mapButton2">Bachelorette Party</button>
+                <button type="button" class="btn btn-default btn-map" id="mapButton3">Company Meet and Greet</button>
+                <button type="button" class="btn btn-default btn-map" id="mapButton4">Visit to Grandma's</button>
+                <button type="button" class="btn btn-default btn-map" id="mapButton5">Backyard BBQ</button>
+                <br> <br>
+                <button type="button" class="btn btn-default btn-fight" id="fightButton">You're Ready...Fight!</button>
+                <button type="button" class="btn btn-default btn-replay" id="replayButton">Play Again?</button>
             </div>
         </div>
     </div>

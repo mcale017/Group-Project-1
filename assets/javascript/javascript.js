@@ -22,13 +22,41 @@ $(document).ready(function () {
 
     var database = firebase.database();
 
+    // Global variables for the game
     var player1Name = "";
     var player2Name = "";
-    var player1Wins = "";
-    var player2Wins = "";
-    var player1Losses = "";
-    var player2Losses = "";
 
+    // Set as integers, so we can increase the count with end-game function
+    var player1Wins = 0;
+    var player2Wins = 0;
+    var player1Losses = 0;
+    var player2Losses = 0;
+
+    var mapButton = $(".btn-map");
+    var fightBtn = $("#fightButton");
+    var replayBtn = $("#replayButton");
+    var isGameInProgress = true;
+
+    // Function called to restart game
+    function startGame() {
+        fightBtn.hide();
+        mapButton.show();
+        replayBtn.hide();
+        $(".input-group").show();
+        $("#inputFileToLoadLeft").show();
+        $("#inputFileToLoadRight").show();
+        $("#upload-button-left").show();
+        $("#upload-button-right").show();
+        $("#announcement").html("FACE OFF!");
+        $("#subAnnouncement").html("");
+        $("body").css('background', 'linear-gradient(rgb(231, 231, 231), white, rgb(25, 25, 184))');
+        $("#image-left").attr('src', "./assets/images/chocolate.jpg");
+        $("#image-right").attr('src', "./assets/images/restaraunt.jpg");
+        $(".action-button-left").remove();
+        $(".action-button-right").remove();
+        isGameInProgress = true;
+        imageFileToLoad.val('');
+    }
     function retrievePlayer1() {
         return database.ref("Player 1").once('value').then(function (snapshot) {
             if (snapshot.exists()) {
@@ -629,121 +657,212 @@ $(document).ready(function () {
         })
     }
 
-    $("#action-buttons-left").on("click", ".action-button-left", function(event) {
+
+    $("#action-buttons-left").on("click", ".action-button-left", function (event) {
         if (player1State === true) {
             var player1Action = $(this).attr("action-value");
             console.log(player1Action);
-    
+
             switchActionState();
         } else {
             console.log("It's not your turn");
         }
     })
 
-    $("#action-buttons-right").on("click", ".action-button-right", function(event) {
+    $("#action-buttons-right").on("click", ".action-button-right", function (event) {
         if (player2State === true) {
             var player2Action = $(this).attr("action-value");
             console.log(player2Action);
-    
+
             switchActionState();
         } else {
             console.log("It's not your turn");
         }
     })
+
+
+    // Functions that upload images from chosen files
+    function selectImageLeft() {
+        var imageFileToLoad = document.createElement("input");
+        imageFileToLoad.type = "file";
+        imageFileToLoad.id = "inputFileToLoadLeft";
+        $("#caption-left").append(imageFileToLoad);
+
+        var loadFileButton = document.createElement("button");
+        loadFileButton.id = "upload-button-left";
+        loadFileButton.onclick = loadImageFileAsURLLeft;
+        loadFileButton.textContent = "Use this instead!";
+        $("#caption-left").append(loadFileButton);
+    }
+
+    function loadImageFileAsURLLeft() {
+        var fileSelected = document.getElementById("inputFileToLoadLeft").files;
+        if (fileSelected.length > 0) {
+            var fileToLoad = fileSelected[0];
+
+            if (fileToLoad.type.match("image.*")) {
+                var fileReader = new FileReader();
+                fileReader.onload = function (fileLoadedEvent) {
+                    var imageLoaded = document.createElement("img");
+                    imageLoaded.src = fileLoadedEvent.target.result;
+                    $("#image-left").attr("src", imageLoaded.src);
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+    }
+
+    function selectImageRight() {
+        var imageFileToLoad = document.createElement("input");
+        imageFileToLoad.type = "file";
+        imageFileToLoad.id = "inputFileToLoadRight";
+        $("#caption-right").append(imageFileToLoad);
+
+        var loadFileButton = document.createElement("button");
+        loadFileButton.id = "upload-button-right";
+        loadFileButton.onclick = loadImageFileAsURLRight;
+        loadFileButton.textContent = "Use this instead!";
+        $("#caption-right").append(loadFileButton);
+    }
+
+    function loadImageFileAsURLRight() {
+        var fileSelected = document.getElementById("inputFileToLoadRight").files;
+        if (fileSelected.length > 0) {
+            var fileToLoad = fileSelected[0];
+
+            if (fileToLoad.type.match("image.*")) {
+                var fileReader = new FileReader();
+                fileReader.onload = function (fileLoadedEvent) {
+                    var imageLoaded = document.createElement("img");
+                    imageLoaded.src = fileLoadedEvent.target.result;
+                    $("#image-right").attr("src", imageLoaded.src);
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+    }
+
+    // Function to shuffle an array in a random order
+    function ShuffleArray(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+    // Function that will switch action-state of each player
+    var player1State = true;
+    var player2State = false;
+
+    function switchActionState() {
+        if (player1State === true && player2State === false) {
+            player1State = false;
+            player2State = true;
+        }
+        else if (player1State === false && player2State === true) {
+            player1State = true;
+            player2State = false;
+        }
+    }
+
+    //map 1 button
+    $("#mapButton1").on("click", function () {
+        console.log("You chose Map 1");
+        $("body").css("background-image", "url('./assets/images/map1.jpg')");
+        fightBtn.show();
+        $("#announcement").html("You Chose Going to Prom!");
+        $("#subAnnouncement").html("#bestnightofourlives #classof2018");
+    });
+
+    //map 2 button
+    $("#mapButton2").on("click", function () {
+        console.log("You chose Map 2");
+        $("body").css("background-image", "url('./assets/images/map2.jpg')");
+        fightBtn.show();
+        $("#announcement").html("You Chose the Bachelorette Party!");
+        $("#subAnnouncement").html("Woooo! Bring on Magic Mike!!!");
+    });
+
+    //map 3 button
+    $("#mapButton3").on("click", function () {
+        console.log("You chose Map 3");
+        $("body").css("background-image", "url('./assets/images/map3.jpg')");
+        fightBtn.show();
+        $("#announcement").html("You Chose the Company Meet & Greet!");
+        $("#subAnnouncement").html("...I think I'm gonna call in sick today");
+    });
+
+    //map 4 button
+    $("#mapButton4").on("click", function () {
+        console.log("You chose Map 4");
+        $("body").css("background-image", "url('./assets/images/map4.jpg')");
+        fightBtn.show();
+        $("#announcement").html("You Chose to Visit Grandma!");
+        $("#subAnnouncement").html("Who wants milk and cookies?");
+    });
+
+    //map 5 button
+    $("#mapButton5").on("click", function () {
+        console.log("You chose Map 5");
+        $("body").css("background-image", "url('./assets/images/map5.jpg')");
+        fightBtn.show();
+        $("#announcement").html("You Chose the Backyard BBQ");
+        $("#subAnnouncement").html("Oh man, the host couple is fighting again...");
+    });
+
+    fightBtn.on("click", function () {
+        mapButton.hide();
+        fightBtn.hide();
+        $(".input-group").hide();
+        $("#inputFileToLoadLeft").hide();
+        $("#inputFileToLoadRight").hide();
+        $("#upload-button-left").hide();
+        $("#upload-button-right").hide();
+    })
+
+    replayBtn.on("click", function () {
+        startGame();
+    })
+
+    // End of game function
+    function endOfGame() {
+
+        // If health is still above 0 for both players
+        if (!isGameInProgress) {
+            return;
+        }
+
+        // If player 1 health is or below 0
+        if (player1Health <= 0 && player2Health > 0) {
+            // Update Players wins/losses
+            player1Losses++;
+            player2Wins++;
+            // Call the Play Again button to show
+            replayBtn.show();
+            isGameInProgress = false;
+        }
+
+        // If player 2 health is or below 0
+        if (player1Health > 0 && player2Health <= 0) {
+            // Update Players wins/losses
+            player1Wins++;
+            player2Losses++;
+            // Call the Play Again button to show
+            replayBtn.show();
+            isGameInProgress = false;
+        }
+    }
+    startGame();
 })
-
-// Functions that upload images from chosen files
-function selectImageLeft() {
-    var imageFileToLoad = document.createElement("input");
-    imageFileToLoad.type = "file";
-    imageFileToLoad.id = "inputFileToLoadLeft";
-    $("#caption-left").append(imageFileToLoad);
-
-    var loadFileButton = document.createElement("button");
-    loadFileButton.id = "upload-button-left";
-    loadFileButton.onclick = loadImageFileAsURLLeft;
-    loadFileButton.textContent = "Use this instead!";
-    $("#caption-left").append(loadFileButton);
-}
-
-function loadImageFileAsURLLeft() {
-    var fileSelected = document.getElementById("inputFileToLoadLeft").files;
-    if (fileSelected.length > 0) {
-        var fileToLoad = fileSelected[0];
-
-        if (fileToLoad.type.match("image.*")) {
-            var fileReader = new FileReader();
-            fileReader.onload = function (fileLoadedEvent) {
-                var imageLoaded = document.createElement("img");
-                imageLoaded.src = fileLoadedEvent.target.result;
-                $("#image-left").attr("src", imageLoaded.src);
-            }
-            fileReader.readAsDataURL(fileToLoad);
-        }
-    }
-}
-
-function selectImageRight() {
-    var imageFileToLoad = document.createElement("input");
-    imageFileToLoad.type = "file";
-    imageFileToLoad.id = "inputFileToLoadRight";
-    $("#caption-right").append(imageFileToLoad);
-
-    var loadFileButton = document.createElement("button");
-    loadFileButton.id = "upload-button-right";
-    loadFileButton.onclick = loadImageFileAsURLRight;
-    loadFileButton.textContent = "Use this instead!";
-    $("#caption-right").append(loadFileButton);
-}
-
-function loadImageFileAsURLRight() {
-    var fileSelected = document.getElementById("inputFileToLoadRight").files;
-    if (fileSelected.length > 0) {
-        var fileToLoad = fileSelected[0];
-
-        if (fileToLoad.type.match("image.*")) {
-            var fileReader = new FileReader();
-            fileReader.onload = function (fileLoadedEvent) {
-                var imageLoaded = document.createElement("img");
-                imageLoaded.src = fileLoadedEvent.target.result;
-                $("#image-right").attr("src", imageLoaded.src);
-            }
-            fileReader.readAsDataURL(fileToLoad);
-        }
-    }
-}
-
-// Function to shuffle an array in a random order
-function ShuffleArray(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-// Function that will switch action-state of each player
-var player1State = true;
-var player2State = false;
-
-function switchActionState() {
-    if (player1State === true && player2State === false) {
-        player1State = false;
-        player2State = true;
-    }
-    else if (player1State === false && player2State === true) {
-        player1State = true;
-        player2State = false;
-    }
-}
