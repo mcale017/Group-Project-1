@@ -12,6 +12,12 @@ body {
     width: 100%;
 }
 
+/* To be edited */
+.action-button-left, .action-button-right {
+    margin-left: 5px;
+    margin-right: 5px;    
+}
+
 .btn-map {
     background-color: white;
     font-size: 35px;
