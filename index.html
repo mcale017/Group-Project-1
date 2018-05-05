@@ -19,14 +19,16 @@
     <div class="jumbotron">
         <div class="container text-center">
             <h1>FACE OFF!</h1>
+            <br>
+            <h3 id="announcement"></h3>
         </div>
     </div>
     <br>
-    <div class="container">
+    <div class="container background-settings">
         <div class="row">
             <div class="col-lg-4 col-lg-offset-1">
                 <div class="thumbnail">
-                    <img src="assets/images/chocolate.jpg" alt="Player 1" id="image-left">
+                    <img src="assets/images/Player Picture Placeholder.png" alt="Player 1" id="image-left">
                     <br>
                     <div class="progress">
                         <div id="health-left" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
@@ -50,7 +52,7 @@
             </div>
             <div class="col-lg-4 col-lg-offset-2">
                 <div class="thumbnail">
-                    <img src="assets/images/restaraunt.jpg" alt="Player 2" id="image-right">
+                    <img src="assets/images/Player Picture Placeholder.png" alt="Player 2" id="image-right">
                     <br>
                     <div class="progress">
                         <div id="health-right" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
@@ -76,18 +78,6 @@
         <br>
         <!-- Map buttons -->
         <div class="row">
-            <div class="col-lg-12">
-                <div class="btn-group">
-                    <div id="map1"></div>
-                    <div id="map2"></div>
-                    <div id="map3"></div>
-                    <div id="map4"></div>
-                    <div id="map5"></div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
             <div class="col-lg-6">
                 <!-- move this up to images -->
                 <div id="player1-name"></div>
@@ -111,15 +101,23 @@
             </div>
         </div>
         <br>
-        <div class="row">
+        <div class="row mapButtons">
             <div class="col-lg-12 text-center">
-                <button type="button" class="btn btn-default btn-map" id="map1">Map 1</button>
-                <button type="button" class="btn btn-default btn-map" id="map2">Map 2</button>
-                <button type="button" class="btn btn-default btn-map" id="map3">Map 3</button>
-                <button type="button" class="btn btn-default btn-map" id="map4">Map 4</button>
-                <button type="button" class="btn btn-default btn-map" id="map5">Map 5</button>
+                <button type="button" class="btn btn-default" id="mapButton1">Prom</button>
+                <button type="button" class="btn btn-default" id="mapButton2">Bachelorette Party</button>
+                <button type="button" class="btn btn-default" id="mapButton3">Company Meet and Greet</button>
+                <button type="button" class="btn btn-default" id="mapButton4">Visiting Grandma</button>
+                <button type="button" class="btn btn-default" id="mapButton5">Backyard BBQ</button>
             </div>
         </div>
+    <!--
+        <div class="row gameButtons">
+            <div class="col-lg-12 text-center">
+                <button type="button" class="btn btn-default" id="startButton">You're Ready...Face Off!</button>
+                <button type="button" class="btn btn-default" id="restartButton">Play Again?</button>
+            </div>
+        </div>
+    -->
     </div>
     
 

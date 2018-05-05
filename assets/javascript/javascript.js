@@ -1,4 +1,26 @@
 $(document).ready(function () {
+    // Global variables for the game
+    var player1Name = "";
+    var player2Name = "";
+    var player1Wins = 0;
+    var player2Wins = 0;
+    var player1Losses = 0;
+    var player2Losses = 0;
+    var player1Health = parseInt($("#health-left").attr("aria-valuenow"));
+    var player2Health = parseInt($("#health-right").attr("aria-valuenow"));
+    // Just a variable so we can use a function after a set time
+    var imageLeft;
+    var imageRight;
+    // Action-state of each player
+    var player1State = true;
+    var player2State = false;
+    // Some of the buttons that will be used in the game
+    var mapButtons = $(".mapButtons");
+    var gameButtons = $(".gameButtons");
+    var startButton = $("#startButton");
+    var restartButton = $("#restartButton");
+    var isGameInProgress = false;
+
     // Functions to generate buttons to choose an image file and upload that image file to use in this app
     selectImageLeft();
 
@@ -21,14 +43,7 @@ $(document).ready(function () {
     firebase.initializeApp(config);
 
     var database = firebase.database();
-
-    var player1Name = "";
-    var player2Name = "";
-    var player1Wins = "";
-    var player2Wins = "";
-    var player1Losses = "";
-    var player2Losses = "";
-
+    
     function retrievePlayer1() {
         return database.ref("Player 1").once('value').then(function (snapshot) {
             if (snapshot.exists()) {
@@ -174,11 +189,13 @@ $(document).ready(function () {
                 // Actual button 1 of 4
                 var player1AppleButton = $("<button class='btn btn-primary action-button-left' type='button'><span class='glyphicon glyphicon-apple'></span></button>");
                 player1AppleButton.attr("action-value", -5);
+                player1AppleButton.attr("action", " eats an apple to regain some health");
                 player1ActualButtons.push(player1AppleButton);
 
                 // Actual button 2 of 4
                 var player1NeutralButton = $("<button class='btn btn-primary action-button-left' type='button'><span class='glyphicon glyphicon-pawn'></span></button>");
                 player1NeutralButton.attr("action-value", 10);
+                player1NeutralButton.attr("action", " starts talking about something that no one cares about");
                 player1ActualButtons.push(player1NeutralButton);
 
                 // Temporary button 1 of 6
@@ -188,6 +205,7 @@ $(document).ready(function () {
                 } else {
                     player1SadnessButton.attr("action-value", 5);
                 }
+                player1SadnessButton.attr("action", " sings a sad song just to turn it around");
                 player1TempButtons.push(player1SadnessButton);
 
                 // Temporary button 2 of 6
@@ -197,6 +215,7 @@ $(document).ready(function () {
                 } else {
                     player1DisgustButton.attr("action-value", 5);
                 }
+                player1DisgustButton.attr("action", " finds thrown away food just to share some");
                 player1TempButtons.push(player1DisgustButton);
 
                 // Temporary button 3 of 6
@@ -206,6 +225,7 @@ $(document).ready(function () {
                 } else {
                     player1AngerButton.attr("action-value", 5);
                 }
+                player1AngerButton.attr("action", " throws an anger tantrum");
                 player1TempButtons.push(player1AngerButton);
 
                 // Temporary button 4 of 6
@@ -215,6 +235,7 @@ $(document).ready(function () {
                 } else {
                     player1SurpriseButton.attr("action-value", 5);
                 }
+                player1SurpriseButton.attr("action", " has a surprise, wet willy!");
                 player1TempButtons.push(player1SurpriseButton);
 
                 // Temporary button 5 of 6
@@ -224,6 +245,7 @@ $(document).ready(function () {
                 } else {
                     player1HappinessButton.attr("action-value", 5);
                 }
+                player1HappinessButton.attr("action", " has a mission to hug everyone to death");
                 player1TempButtons.push(player1HappinessButton);
 
                 // Temporary button 6 of 6
@@ -233,6 +255,7 @@ $(document).ready(function () {
                 } else {
                     player1FearButton.attr("action-value", 5);
                 }
+                player1FearButton.attr("action", " is scared of that ghost sitting on that shoulder");
                 player1TempButtons.push(player1FearButton);
 
                 // Using the function ShuffleArray to shuffle our temporary button array
@@ -305,11 +328,13 @@ $(document).ready(function () {
                 // Actual button 1 of 4
                 var player2AppleButton = $("<button class='btn btn-primary action-button-right' type='button'><span class='glyphicon glyphicon-apple'></span></button>");
                 player2AppleButton.attr("action-value", -5);
+                player2AppleButton.attr("action", " eats an apple to regain some health");
                 player2ActualButtons.push(player2AppleButton);
 
                 // Actual button 2 of 4
                 var player2NeutralButton = $("<button class='btn btn-primary action-button-right' type='button'><span class='glyphicon glyphicon-pawn'></span></button>");
                 player2NeutralButton.attr("action-value", 10);
+                player2NeutralButton.attr("action", " starts talking about something that no one cares about");
                 player2ActualButtons.push(player2NeutralButton);
 
                 // Temporary button 1 of 6
@@ -319,6 +344,7 @@ $(document).ready(function () {
                 } else {
                     player2SadnessButton.attr("action-value", 5);
                 }
+                player2SadnessButton.attr("action", " sings a sad song just to turn it around");
                 player2TempButtons.push(player2SadnessButton);
 
                 // Temporary button 2 of 6
@@ -328,6 +354,7 @@ $(document).ready(function () {
                 } else {
                     player2DisgustButton.attr("action-value", 5);
                 }
+                player2DisgustButton.attr("action", " finds thrown away food just to share some");
                 player2TempButtons.push(player2DisgustButton);
 
                 // Temporary button 3 of 6
@@ -337,6 +364,7 @@ $(document).ready(function () {
                 } else {
                     player2AngerButton.attr("action-value", 5);
                 }
+                player2AngerButton.attr("action", " throws an anger tantrum");
                 player2TempButtons.push(player2AngerButton);
 
                 // Temporary button 4 of 6
@@ -346,6 +374,7 @@ $(document).ready(function () {
                 } else {
                     player2SurpriseButton.attr("action-value", 5);
                 }
+                player2SurpriseButton.attr("action", " has a surprise, wet willy!");
                 player2TempButtons.push(player2SurpriseButton);
 
                 // Temporary button 5 of 6
@@ -355,6 +384,7 @@ $(document).ready(function () {
                 } else {
                     player2HappinessButton.attr("action-value", 5);
                 }
+                player2HappinessButton.attr("action", " has a mission to hug everyone to death");
                 player2TempButtons.push(player2HappinessButton);
 
                 // Temporary button 6 of 6
@@ -364,6 +394,7 @@ $(document).ready(function () {
                 } else {
                     player2FearButton.attr("action-value", 5);
                 }
+                player2FearButton.attr("action", " is scared of that ghost sitting on that shoulder");
                 player2TempButtons.push(player2FearButton);
 
                 // Using the function ShuffleArray to shuffle our temporary button array
@@ -382,9 +413,6 @@ $(document).ready(function () {
             })
         })
     })
-
-    // Just a variable so we can use a function after a set time
-    var imageLeft;
 
     // When the upload-button-left button is clicked, execute imageLeftUpload function after a second
     $("#upload-button-left").on("click", function () {
@@ -429,11 +457,13 @@ $(document).ready(function () {
             // Actual button 1 of 4
             var player1AppleButton = $("<button class='btn btn-primary action-button-left' type='button'><span class='glyphicon glyphicon-apple'></span></button>");
             player1AppleButton.attr("action-value", -5);
+            player1AppleButton.attr("action", " eats an apple to regain some health");
             player1ActualButtons.push(player1AppleButton);
 
             // Actual button 2 of 4
             var player1NeutralButton = $("<button class='btn btn-primary action-button-left' type='button'><span class='glyphicon glyphicon-pawn'></span></button>");
             player1NeutralButton.attr("action-value", 10);
+            player1NeutralButton.attr("action", " starts talking about something that no one cares about");
             player1ActualButtons.push(player1NeutralButton);
 
             // Temporary button 1 of 6
@@ -443,6 +473,7 @@ $(document).ready(function () {
             } else {
                 player1SadnessButton.attr("action-value", 5);
             }
+            player1SadnessButton.attr("action", " sings a sad song just to turn it around");
             player1TempButtons.push(player1SadnessButton);
 
             // Temporary button 2 of 6
@@ -452,6 +483,7 @@ $(document).ready(function () {
             } else {
                 player1DisgustButton.attr("action-value", 5);
             }
+            player1DisgustButton.attr("action", " finds thrown away food just to share some");
             player1TempButtons.push(player1DisgustButton);
 
             // Temporary button 3 of 6
@@ -461,6 +493,7 @@ $(document).ready(function () {
             } else {
                 player1AngerButton.attr("action-value", 5);
             }
+            player1AngerButton.attr("action", " throws an anger tantrum");
             player1TempButtons.push(player1AngerButton);
 
             // Temporary button 4 of 6
@@ -470,6 +503,7 @@ $(document).ready(function () {
             } else {
                 player1SurpriseButton.attr("action-value", 5);
             }
+            player1SurpriseButton.attr("action", " has a surprise, wet willy!");
             player1TempButtons.push(player1SurpriseButton);
 
             // Temporary button 5 of 6
@@ -479,6 +513,7 @@ $(document).ready(function () {
             } else {
                 player1HappinessButton.attr("action-value", 5);
             }
+            player1HappinessButton.attr("action", " has a mission to hug everyone to death");
             player1TempButtons.push(player1HappinessButton);
 
             // Temporary button 6 of 6
@@ -488,6 +523,7 @@ $(document).ready(function () {
             } else {
                 player1FearButton.attr("action-value", 5);
             }
+            player1FearButton.attr("action", " is scared of that ghost sitting on that shoulder");
             player1TempButtons.push(player1FearButton);
 
             // Using the function ShuffleArray to shuffle our temporary button array
@@ -505,9 +541,6 @@ $(document).ready(function () {
             console.error(textStatus)
         })
     }
-
-    // Just a variable so we can use a function after a set time
-    var imageRight;
 
     // When the upload-button-right button is clicked, execute imageRightUpload function after a second
     $("#upload-button-right").on("click", function () {
@@ -552,11 +585,13 @@ $(document).ready(function () {
             // Actual button 1 of 4
             var player2AppleButton = $("<button class='btn btn-primary action-button-right' type='button'><span class='glyphicon glyphicon-apple'></span></button>");
             player2AppleButton.attr("action-value", -5);
+            player2AppleButton.attr("action", " eats an apple to regain some health");
             player2ActualButtons.push(player2AppleButton);
 
             // Actual button 2 of 4
             var player2NeutralButton = $("<button class='btn btn-primary action-button-right' type='button'><span class='glyphicon glyphicon-pawn'></span></button>");
             player2NeutralButton.attr("action-value", 10);
+            player2NeutralButton.attr("action", " starts talking about something that no one cares about");
             player2ActualButtons.push(player2NeutralButton);
 
             // Temporary button 1 of 6
@@ -566,6 +601,7 @@ $(document).ready(function () {
             } else {
                 player2SadnessButton.attr("action-value", 5);
             }
+            player2SadnessButton.attr("action", " sings a sad song just to turn it around");
             player2TempButtons.push(player2SadnessButton);
 
             // Temporary button 2 of 6
@@ -575,6 +611,7 @@ $(document).ready(function () {
             } else {
                 player2DisgustButton.attr("action-value", 5);
             }
+            player2DisgustButton.attr("action", " finds thrown away food just to share some");
             player2TempButtons.push(player2DisgustButton);
 
             // Temporary button 3 of 6
@@ -584,6 +621,7 @@ $(document).ready(function () {
             } else {
                 player2AngerButton.attr("action-value", 5);
             }
+            player2AngerButton.attr("action", " throws an anger tantrum");
             player2TempButtons.push(player2AngerButton);
 
             // Temporary button 4 of 6
@@ -593,6 +631,7 @@ $(document).ready(function () {
             } else {
                 player2SurpriseButton.attr("action-value", 5);
             }
+            player2SurpriseButton.attr("action", " has a surprise, wet willy!");
             player2TempButtons.push(player2SurpriseButton);
 
             // Temporary button 5 of 6
@@ -602,6 +641,7 @@ $(document).ready(function () {
             } else {
                 player2HappinessButton.attr("action-value", 5);
             }
+            player2HappinessButton.attr("action", " has a mission to hug everyone to death");
             player2TempButtons.push(player2HappinessButton);
 
             // Temporary button 6 of 6
@@ -611,6 +651,7 @@ $(document).ready(function () {
             } else {
                 player2FearButton.attr("action-value", 5);
             }
+            player2FearButton.attr("action", " is scared of that ghost sitting on that shoulder");
             player2TempButtons.push(player2FearButton);
 
             // Using the function ShuffleArray to shuffle our temporary button array
@@ -629,121 +670,285 @@ $(document).ready(function () {
         })
     }
 
-    $("#action-buttons-left").on("click", ".action-button-left", function(event) {
+
+    $("#action-buttons-left").on("click", ".action-button-left", function (event) {
         if (player1State === true) {
-            var player1Action = $(this).attr("action-value");
-            console.log(player1Action);
-    
+            var player1ActionValue = $(this).attr("action-value");
+            var player1Action = $(this).attr("action");
+
+            if (player1ActionValue < 0) {
+                if ($("#health-left").attr("aria-valuenow") < 100) {
+                    $("#health-left").attr("aria-valuenow", $("#health-left").attr("aria-valuenow") - player1ActionValue);
+                    $("#health-left").css("width", $("#health-left").attr("aria-valuenow") + "%");
+                    $("#health-left").html($("#health-left").attr("aria-valuenow") + "%");
+                    $("#announcement").html(player1Name + player1Action);
+                } else {
+                    $("#announcement").html(player1Name + ", you're already 100%, don't be silly");
+                    switchActionState();
+                }
+            } else {
+                $("#health-right").attr("aria-valuenow", $("#health-right").attr("aria-valuenow") - player1ActionValue);
+                $("#health-right").css("width", $("#health-right").attr("aria-valuenow") + "%");
+                if ($("#health-right").attr("aria-valuenow") > 0) {
+                    $("#health-right").html($("#health-right").attr("aria-valuenow") + "%");
+                } else {
+                    $("#health-right").html("");
+                }
+                $("#announcement").html(player1Name + player1Action);
+            }
+
             switchActionState();
+
+            endOfGame();
         } else {
-            console.log("It's not your turn");
+            $("#announcement").html("It's not your turn, " + player1Name);
         }
     })
 
-    $("#action-buttons-right").on("click", ".action-button-right", function(event) {
+    $("#action-buttons-right").on("click", ".action-button-right", function (event) {
         if (player2State === true) {
-            var player2Action = $(this).attr("action-value");
-            console.log(player2Action);
-    
+            var player2ActionValue = $(this).attr("action-value");
+            var player2Action = $(this).attr("action");
+            
+            if (player2ActionValue < 0) {
+                if ($("#health-right").attr("aria-valuenow") < 100) {
+                    $("#health-right").attr("aria-valuenow", $("#health-right").attr("aria-valuenow") - player2ActionValue);
+                    $("#health-right").css("width", $("#health-right").attr("aria-valuenow") + "%");
+                    $("#health-right").html($("#health-right").attr("aria-valuenow") + "%");
+                    $("#announcement").html(player2Name + player2Action);
+                } else {
+                    $("#announcement").html(player2Name + ", you're already 100%, don't be silly.");
+                    swithActionState();
+                }
+            } else {
+                $("#health-left").attr("aria-valuenow", $("#health-left").attr("aria-valuenow") - player2ActionValue);
+                $("#health-left").css("width", $("#health-left").attr("aria-valuenow") + "%");
+                if ($("#health-left").attr("aria-valuenow") > 0) {
+                    $("#health-left").html($("#health-left").attr("aria-valuenow") + "%");
+                } else {
+                    $("#health-left").html("");
+                }
+                $("#announcement").html(player2Name + player2Action);
+            }
+
             switchActionState();
+
+            endOfGame();
         } else {
-            console.log("It's not your turn");
+            $("#announcement").html("It's not your turn, " + player2Name);
         }
     })
+
+    // Function that empties out the announcement section
+    function emptyAnnouncement() {
+        $("#announcement").fadeOut().empty();
+    }
+
+
+    // Functions that upload images from chosen files
+    function selectImageLeft() {
+        var imageFileToLoad = document.createElement("input");
+        imageFileToLoad.type = "file";
+        imageFileToLoad.id = "inputFileToLoadLeft";
+        $("#caption-left").append(imageFileToLoad);
+
+        var loadFileButton = document.createElement("button");
+        loadFileButton.id = "upload-button-left";
+        loadFileButton.onclick = loadImageFileAsURLLeft;
+        loadFileButton.textContent = "Use this instead!";
+        $("#caption-left").append(loadFileButton);
+    }
+
+    function loadImageFileAsURLLeft() {
+        var fileSelected = document.getElementById("inputFileToLoadLeft").files;
+        if (fileSelected.length > 0) {
+            var fileToLoad = fileSelected[0];
+
+            if (fileToLoad.type.match("image.*")) {
+                var fileReader = new FileReader();
+                fileReader.onload = function (fileLoadedEvent) {
+                    var imageLoaded = document.createElement("img");
+                    imageLoaded.src = fileLoadedEvent.target.result;
+                    $("#image-left").attr("src", imageLoaded.src);
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+    }
+
+    function selectImageRight() {
+        var imageFileToLoad = document.createElement("input");
+        imageFileToLoad.type = "file";
+        imageFileToLoad.id = "inputFileToLoadRight";
+        $("#caption-right").append(imageFileToLoad);
+
+        var loadFileButton = document.createElement("button");
+        loadFileButton.id = "upload-button-right";
+        loadFileButton.onclick = loadImageFileAsURLRight;
+        loadFileButton.textContent = "Use this instead!";
+        $("#caption-right").append(loadFileButton);
+    }
+
+    function loadImageFileAsURLRight() {
+        var fileSelected = document.getElementById("inputFileToLoadRight").files;
+        if (fileSelected.length > 0) {
+            var fileToLoad = fileSelected[0];
+
+            if (fileToLoad.type.match("image.*")) {
+                var fileReader = new FileReader();
+                fileReader.onload = function (fileLoadedEvent) {
+                    var imageLoaded = document.createElement("img");
+                    imageLoaded.src = fileLoadedEvent.target.result;
+                    $("#image-right").attr("src", imageLoaded.src);
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+    }
+
+    // Function to shuffle an array in a random order
+    function ShuffleArray(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+    // Function to switch players 1 and 2's state
+    function switchActionState() {
+        if (player1State === true && player2State === false) {
+            player1State = false;
+            player2State = true;
+        }
+        else if (player1State === false && player2State === true) {
+            player1State = true;
+            player2State = false;
+        }
+    }
+
+    //map 1 button
+    $("#mapButton1").on("click", function () {
+        console.log("You chose Map 1");
+        $("body").css("background-image", "url('./assets/images/map1.jpg')");
+        startButton.show();
+        $("#announcement").html("You Chose Going to Prom!");
+        $("#subAnnouncement").html("#bestnightofourlives #classof2018");
+    });
+
+    //map 2 button
+    $("#mapButton2").on("click", function () {
+        console.log("You chose Map 2");
+        $("body").css("background-image", "url('./assets/images/map2.jpg')");
+        startButton.show();
+        $("#announcement").html("You Chose the Bachelorette Party!");
+        $("#subAnnouncement").html("Woooo! Bring on Magic Mike!!!");
+    });
+
+    //map 3 button
+    $("#mapButton3").on("click", function () {
+        console.log("You chose Map 3");
+        $("body").css("background-image", "url('./assets/images/map3.jpg')");
+        startButton.show();
+        $("#announcement").html("You Chose the Company Meet & Greet!");
+        $("#subAnnouncement").html("...I think I'm gonna call in sick today");
+    });
+
+    //map 4 button
+    $("#mapButton4").on("click", function () {
+        console.log("You chose Map 4");
+        $("body").css("background-image", "url('./assets/images/map4.jpg')");
+        startButton.show();
+        $("#announcement").html("You Chose to Visit Grandma!");
+        $("#subAnnouncement").html("Who wants milk and cookies?");
+    });
+
+    //map 5 button
+    $("#mapButton5").on("click", function () {
+        console.log("You chose Map 5");
+        $("body").css("background-image", "url('./assets/images/map5.jpg')");
+        startButton.show();
+        $("#announcement").html("You Chose the Backyard BBQ");
+        $("#subAnnouncement").html("Oh man, the host couple is fighting again...");
+    });
+
+    startButton.on("click", function () {
+        mapButtons.hide();
+        startButton.hide();
+        $(".input-group").hide();
+        $("#inputFileToLoadLeft").hide();
+        $("#inputFileToLoadRight").hide();
+        $("#upload-button-left").hide();
+        $("#upload-button-right").hide();
+    })
+
+    restartButton.on("click", function () {
+        startGame();
+    })
+
+    // Function called to start/restart the game
+    function startGame() {
+        gameButtons.hide();
+        mapButtons.show();
+        $(".input-group").show();
+        $("#inputFileToLoadLeft").show();
+        $("#inputFileToLoadRight").show();
+        $("#upload-button-left").show();
+        $("#upload-button-right").show();
+        $("#announcement").html("FACE OFF!");
+        $("#subAnnouncement").html("");
+        $("body").css('background', 'linear-gradient(white, rgb(25, 25, 184))');
+        $("#image-left").attr('src', "./assets/images/Player Picture Placeholder.png");
+        $("#image-right").attr('src', "./assets/images/Player Picture Placeholder.png");
+        $(".action-button-left").remove();
+        $(".action-button-right").remove();
+        isGameInProgress = true;
+        $("#imageFileToLoadLeft").val('');
+        $("#imageFileToLoadRight").val('');
+    }
+
+    // End of game function
+    function endOfGame() {
+        // If health is still above 0 for both players
+        if (!isGameInProgress) {
+            return;
+
+            console.log("Game's still going!");
+        }
+
+        // If player 1 health is at or below 0
+        if (player1Health <= 0 && player2Health > 0) {
+            // Update Players wins/losses
+            player1Losses++;
+            player2Wins++;
+            // Call the Play Again button to show
+            restartButton.show();
+            isGameInProgress = false;
+
+            console.log("Game ended!");
+        }
+
+        // If player 2 health is at or below 0
+        if (player1Health > 0 && player2Health <= 0) {
+            // Update Players wins/losses
+            player1Wins++;
+            player2Losses++;
+            // Call the Play Again button to show
+            restartButton.show();
+            isGameInProgress = false;
+
+            console.log("Game ended!");
+        }
+    }
 })
-
-// Functions that upload images from chosen files
-function selectImageLeft() {
-    var imageFileToLoad = document.createElement("input");
-    imageFileToLoad.type = "file";
-    imageFileToLoad.id = "inputFileToLoadLeft";
-    $("#caption-left").append(imageFileToLoad);
-
-    var loadFileButton = document.createElement("button");
-    loadFileButton.id = "upload-button-left";
-    loadFileButton.onclick = loadImageFileAsURLLeft;
-    loadFileButton.textContent = "Use this instead!";
-    $("#caption-left").append(loadFileButton);
-}
-
-function loadImageFileAsURLLeft() {
-    var fileSelected = document.getElementById("inputFileToLoadLeft").files;
-    if (fileSelected.length > 0) {
-        var fileToLoad = fileSelected[0];
-
-        if (fileToLoad.type.match("image.*")) {
-            var fileReader = new FileReader();
-            fileReader.onload = function (fileLoadedEvent) {
-                var imageLoaded = document.createElement("img");
-                imageLoaded.src = fileLoadedEvent.target.result;
-                $("#image-left").attr("src", imageLoaded.src);
-            }
-            fileReader.readAsDataURL(fileToLoad);
-        }
-    }
-}
-
-function selectImageRight() {
-    var imageFileToLoad = document.createElement("input");
-    imageFileToLoad.type = "file";
-    imageFileToLoad.id = "inputFileToLoadRight";
-    $("#caption-right").append(imageFileToLoad);
-
-    var loadFileButton = document.createElement("button");
-    loadFileButton.id = "upload-button-right";
-    loadFileButton.onclick = loadImageFileAsURLRight;
-    loadFileButton.textContent = "Use this instead!";
-    $("#caption-right").append(loadFileButton);
-}
-
-function loadImageFileAsURLRight() {
-    var fileSelected = document.getElementById("inputFileToLoadRight").files;
-    if (fileSelected.length > 0) {
-        var fileToLoad = fileSelected[0];
-
-        if (fileToLoad.type.match("image.*")) {
-            var fileReader = new FileReader();
-            fileReader.onload = function (fileLoadedEvent) {
-                var imageLoaded = document.createElement("img");
-                imageLoaded.src = fileLoadedEvent.target.result;
-                $("#image-right").attr("src", imageLoaded.src);
-            }
-            fileReader.readAsDataURL(fileToLoad);
-        }
-    }
-}
-
-// Function to shuffle an array in a random order
-function ShuffleArray(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-// Function that will switch action-state of each player
-var player1State = true;
-var player2State = false;
-
-function switchActionState() {
-    if (player1State === true && player2State === false) {
-        player1State = false;
-        player2State = true;
-    }
-    else if (player1State === false && player2State === true) {
-        player1State = true;
-        player2State = false;
-    }
-}
