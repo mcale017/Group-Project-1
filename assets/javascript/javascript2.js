@@ -14,8 +14,8 @@ var isGameInProgress = true;
 // Restart Function
 function startGame() {
     // Empty image boxes
-    $("#userImage1").html("");
-    $("#userImage2").html("");
+    $("#userImageLeft").html("");
+    $("#userImageRight").html("");
 
     // Hide and show certain buttons
     fightBtn.hide();
@@ -35,10 +35,12 @@ function startGame() {
 // At the start of a fight
 $("#startFight").on("click", function () {
     // Hide all the below elements
-    $("#searchForm").hide();
-    $("#submitButton").hide();
-    $("#uploadButton").hide();
-    $("#chooseFileButton").hide();
+    $(".textSearchA").hide();
+    $(".textSearchB").hide();
+    $(".textSearchC").hide();
+    $(".textSearchD").hide();
+    //$("#uploadButton").hide();
+    //$("#chooseFileButton").hide();
     backgroundBanner.hide();
     Jumbotron.hide();
     actionButton.show();
@@ -64,7 +66,7 @@ $("#map2").on("click", function () {
 //map 3 button
 $("#map3").on("click", function () {
     $("body").css("background-image", "url()"); //URL to be placed when we get images
-    $(".mapButtons").hide(); 
+    $(".mapButtons").hide();
 });
 
 //map 4 button
