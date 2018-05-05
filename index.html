@@ -31,14 +31,38 @@
                 <li>There is a message box in the jumbotron that both users can read to see how the game is progressing.</li>
                 <li>Users will have 4 buttons (the first 2 will always be there) to choose their actions from:</li>
                 <br>
-                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-apple'></span></button> player regains some health</p>
-                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-pawn'></span></button> player talks... and never stops</p>
-                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-music'></span></button> player sings an awful sad song</p>
-                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-trash'></span></button> player shares garbage as food</p>
-                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-fire'></span></button> player can't contain anger</p>
-                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-sunglasses'></span></button> player performs a surprise move</p>
-                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-heart'></span></button> player gives out "nice" hugs</p>
-                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-eye-close'></span></button> player might be able to see ghosts</p>
+                <p>
+                    <button class='btn btn-primary example-button' type='button'>
+                        <span class='glyphicon glyphicon-apple'></span>
+                    </button> player regains some health</p>
+                <p>
+                    <button class='btn btn-primary example-button' type='button'>
+                        <span class='glyphicon glyphicon-pawn'></span>
+                    </button> player talks... and never stops</p>
+                <p>
+                    <button class='btn btn-primary example-button' type='button'>
+                        <span class='glyphicon glyphicon-music'></span>
+                    </button> player sings an awful sad song</p>
+                <p>
+                    <button class='btn btn-primary example-button' type='button'>
+                        <span class='glyphicon glyphicon-trash'></span>
+                    </button> player shares garbage as food</p>
+                <p>
+                    <button class='btn btn-primary example-button' type='button'>
+                        <span class='glyphicon glyphicon-fire'></span>
+                    </button> player can't contain anger</p>
+                <p>
+                    <button class='btn btn-primary example-button' type='button'>
+                        <span class='glyphicon glyphicon-sunglasses'></span>
+                    </button> player performs a surprise move</p>
+                <p>
+                    <button class='btn btn-primary example-button' type='button'>
+                        <span class='glyphicon glyphicon-heart'></span>
+                    </button> player gives out "nice" hugs</p>
+                <p>
+                    <button class='btn btn-primary example-button' type='button'>
+                        <span class='glyphicon glyphicon-eye-close'></span>
+                    </button> player might be able to see ghosts</p>
                 <br>
                 <li>Winner is declared after one of the users' health is depleted to zero.</li>
                 <li>There will be a restart button available at the end of the game.</li>
@@ -78,15 +102,21 @@
                     </div>
                     <br>
                     <div id="caption-left" class="caption">
+                        <div class="input-group" style="font-size: 12px; color: #286090;">
+                            If you are a new player...
+                        </div>
                         <div class="input-group">
                             <input aria-describedby="add-player1" placeholder="Enter your name..." type="text" class="form-control" id="player1-name-submit">
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" id="add-player1">
-                                    <span class="glyphicon glyphicon-search"></span>
+                                    <span class="glyphicon glyphicon-ok"></span>
                                 </button>
                             </span>
                         </div>
                         <br>
+                        <div class="input-group" style="font-size: 12px; color: #286090;">
+                            Search for an emotion
+                        </div>
                         <div class="input-group">
                             <input aria-describedby="submit-button-left" placeholder="Search online" type="text" class="form-control" id="search-area-left">
                             <span class="input-group-btn">
@@ -122,15 +152,21 @@
                     </div>
                     <br>
                     <div id="caption-right" class="caption">
+                        <div class="input-group" style="font-size: 12px; color: #286090;">
+                            If you are a new player...
+                        </div>
                         <div class="input-group">
                             <input aria-describedby="add-player2" placeholder="Enter your name..." type="text" class="form-control" id="player2-name-submit">
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" id="add-player2">
-                                    <span class="glyphicon glyphicon-search"></span>
+                                    <span class="glyphicon glyphicon-ok"></span>
                                 </button>
                             </span>
                         </div>
                         <br>
+                        <div class="input-group" style="font-size: 12px; color: #286090;">
+                            Search for an emotion
+                        </div>
                         <div class="input-group">
                             <input aria-describedby="submit-button-right" placeholder="Search online" type="text" class="form-control" id="search-area-right">
                             <span class="input-group-btn">
