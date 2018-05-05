@@ -18,8 +18,9 @@
 <body>
     <div class="jumbotron">
         <div class="container text-center">
-            <h1 id="announcement">FACE OFF!</h1>
-            <h3 id=subAnnouncement></h3>
+            <h1>FACE OFF!</h1>
+            <br>
+            <h3 id="announcement"></h3>
         </div>
     </div>
     <br>
@@ -27,7 +28,7 @@
         <div class="row">
             <div class="col-lg-4 col-lg-offset-1">
                 <div class="thumbnail">
-                    <img src="assets/images/chocolate.jpg" alt="Player 1" id="image-left">
+                    <img src="assets/images/Player Picture Placeholder.png" alt="Player 1" id="image-left">
                     <br>
                     <div class="progress">
                         <div id="health-left" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
@@ -51,7 +52,7 @@
             </div>
             <div class="col-lg-4 col-lg-offset-2">
                 <div class="thumbnail">
-                    <img src="assets/images/restaraunt.jpg" alt="Player 2" id="image-right">
+                    <img src="assets/images/Player Picture Placeholder.png" alt="Player 2" id="image-right">
                     <br>
                     <div class="progress">
                         <div id="health-right" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
@@ -100,18 +101,23 @@
             </div>
         </div>
         <br>
-        <div class="row">
+        <div class="row mapButtons">
             <div class="col-lg-12 text-center">
-                <button type="button" class="btn btn-default btn-map" id="mapButton1">PROM</button>
-                <button type="button" class="btn btn-default btn-map" id="mapButton2">Bachelorette Party</button>
-                <button type="button" class="btn btn-default btn-map" id="mapButton3">Company Meet and Greet</button>
-                <button type="button" class="btn btn-default btn-map" id="mapButton4">Visit to Grandma's</button>
-                <button type="button" class="btn btn-default btn-map" id="mapButton5">Backyard BBQ</button>
-                <br> <br>
-                <button type="button" class="btn btn-default btn-fight" id="fightButton">You're Ready...Fight!</button>
-                <button type="button" class="btn btn-default btn-replay" id="replayButton">Play Again?</button>
+                <button type="button" class="btn btn-default" id="mapButton1">Prom</button>
+                <button type="button" class="btn btn-default" id="mapButton2">Bachelorette Party</button>
+                <button type="button" class="btn btn-default" id="mapButton3">Company Meet and Greet</button>
+                <button type="button" class="btn btn-default" id="mapButton4">Visiting Grandma</button>
+                <button type="button" class="btn btn-default" id="mapButton5">Backyard BBQ</button>
             </div>
         </div>
+    <!--
+        <div class="row gameButtons">
+            <div class="col-lg-12 text-center">
+                <button type="button" class="btn btn-default" id="startButton">You're Ready...Face Off!</button>
+                <button type="button" class="btn btn-default" id="restartButton">Play Again?</button>
+            </div>
+        </div>
+    -->
     </div>
     
 

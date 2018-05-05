@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(rgb(231, 231, 231), white, rgb(25, 25, 184));
+    background: linear-gradient(white, rgb(25, 25, 184));
     padding-bottom: 200px;
 }
 
@@ -16,24 +16,4 @@ body {
 .action-button-left, .action-button-right {
     margin-left: 5px;
     margin-right: 5px;    
-}
-
-.btn-map {
-    background-color: white;
-    font-size: 18px;
-    padding: 30px;
-    border-style: solid;
-    border-width: 3px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.btn-fight {
-    background-color: white;
-    font-size: 18px;
-    padding: 30px;
-    border-style: solid;
-    border-width: 3px;
-    margin-left: 10px;
-    margin-right: 10px;
 }
