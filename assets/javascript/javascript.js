@@ -6,8 +6,8 @@ $(document).ready(function () {
     var player2Wins = 0;
     var player1Losses = 0;
     var player2Losses = 0;
-    var player1Health = parseInt($("#health-left").attr("aria-valuenow"));
-    var player2Health = parseInt($("#health-right").attr("aria-valuenow"));
+    var player1Health = 100;
+    var player2Health = 100;
     // Just a variable so we can use a function after a set time
     var imageLeft;
     var imageRight;
@@ -38,10 +38,10 @@ $(document).ready(function () {
 
     // Rules Button
     var modal = $("#rules")
-    $("#rules-on-button").on("click", function() {
+    $("#rules-on-button").on("click", function () {
         modal[0].style.display = "block";
     })
-    $("#rules-off-button").on("click", function() {
+    $("#rules-off-button").on("click", function () {
         modal[0].style.display = "none";
     })
 
@@ -260,7 +260,7 @@ $(document).ready(function () {
                 } else {
                     player1HappinessButton.attr("action-value", 5);
                 }
-                player1HappinessButton.attr("action", " has a mission to hug everyone to death");
+                player1HappinessButton.attr("action", " is going to hug everyone to death");
                 player1TempButtons.push(player1HappinessButton);
 
                 // Temporary button 6 of 6
@@ -399,7 +399,7 @@ $(document).ready(function () {
                 } else {
                     player2HappinessButton.attr("action-value", 5);
                 }
-                player2HappinessButton.attr("action", " has a mission to hug everyone to death");
+                player2HappinessButton.attr("action", " is going to hug everyone to death");
                 player2TempButtons.push(player2HappinessButton);
 
                 // Temporary button 6 of 6
@@ -528,7 +528,7 @@ $(document).ready(function () {
             } else {
                 player1HappinessButton.attr("action-value", 5);
             }
-            player1HappinessButton.attr("action", " has a mission to hug everyone to death");
+            player1HappinessButton.attr("action", " is going to hug everyone to death");
             player1TempButtons.push(player1HappinessButton);
 
             // Temporary button 6 of 6
@@ -656,7 +656,7 @@ $(document).ready(function () {
             } else {
                 player2HappinessButton.attr("action-value", 5);
             }
-            player2HappinessButton.attr("action", " has a mission to hug everyone to death");
+            player2HappinessButton.attr("action", " is going to hug everyone to death");
             player2TempButtons.push(player2HappinessButton);
 
             // Temporary button 6 of 6
@@ -714,6 +714,8 @@ $(document).ready(function () {
             }
             switchActionState();
 
+            animation2Functions();
+
             endOfGame();
         } else {
             $("#announcement").html("It's not your turn, " + player1Name);
@@ -748,6 +750,8 @@ $(document).ready(function () {
                 $("#announcement").html(player2Name + player2Action);
             }
             switchActionState();
+
+            animation1Functions();
 
             endOfGame();
         } else {
@@ -848,49 +852,44 @@ $(document).ready(function () {
         }
     }
 
-    //map 1 button
+    // Map 1 button
     $("#mapButton1").on("click", function () {
         console.log("You chose Map 1");
         $("body").css("background-image", "url('./assets/images/map1.jpg')");
         startButton.show();
-        $("#announcement").html("You Chose Going to Prom!");
-        $("#subAnnouncement").html("#bestnightofourlives #classof2018");
+        $("#announcement").html("You are going to prom! <br> #bestnightofourlives #classof2018");
     });
 
-    //map 2 button
+    // Map 2 button
     $("#mapButton2").on("click", function () {
         console.log("You chose Map 2");
         $("body").css("background-image", "url('./assets/images/map2.jpg')");
         startButton.show();
-        $("#announcement").html("You Chose the Bachelorette Party!");
-        $("#subAnnouncement").html("Woooo! Bring on Magic Mike!!!");
+        $("#announcement").html("You are throwing the Bachelorette Party! <br> Woooo! Bring on Magic Mike!!!");
     });
 
-    //map 3 button
+    // Map 3 button
     $("#mapButton3").on("click", function () {
         console.log("You chose Map 3");
         $("body").css("background-image", "url('./assets/images/map3.jpg')");
         startButton.show();
-        $("#announcement").html("You Chose the Company Meet & Greet!");
-        $("#subAnnouncement").html("...I think I'm gonna call in sick today");
+        $("#announcement").html("You find yourself at the Company Meet & Greet! <br> ...I think I'm gonna call in sick today");
     });
 
-    //map 4 button
+    // Map 4 button
     $("#mapButton4").on("click", function () {
         console.log("You chose Map 4");
         $("body").css("background-image", "url('./assets/images/map4.jpg')");
         startButton.show();
-        $("#announcement").html("You Chose to Visit Grandma!");
-        $("#subAnnouncement").html("Who wants milk and cookies?");
+        $("#announcement").html("You are visiting Grandma's! <br> Who wants milk and cookies?");
     });
 
-    //map 5 button
+    // Map 5 button
     $("#mapButton5").on("click", function () {
         console.log("You chose Map 5");
         $("body").css("background-image", "url('./assets/images/map5.jpg')");
         startButton.show();
-        $("#announcement").html("You Chose the Backyard BBQ");
-        $("#subAnnouncement").html("Oh man, the host couple is fighting again...");
+        $("#announcement").html("You are invited to the Backyard BBQ <br> But oh man.. the host couple is fighting again...");
     });
 
     startButton.on("click", function () {
@@ -904,21 +903,22 @@ $(document).ready(function () {
     })
 
     restartButton.on("click", function () {
-        restartGame();
+        startGame();
     })
 
     // Function called to start/restart the game
     function startGame() {
         startButton.hide();
+        restartButton.hide();
         mapButtons.show();
         $(".input-group").show();
         $("#inputFileToLoadLeft").show();
         $("#inputFileToLoadRight").show();
         $("#upload-button-left").show();
         $("#upload-button-right").show();
-        $("#announcement").html("FACE OFF!");
+        $("#announcement").html("Read the rules before you play the game!");
         $("#subAnnouncement").html("");
-        $("body").css('background', 'linear-gradient(white, rgb(25, 25, 184))');
+        $("body").css('background', 'linear-gradient(white, #286090');
         $("#image-left").attr('src', "./assets/images/Player Picture Placeholder.png");
         $("#image-right").attr('src', "./assets/images/Player Picture Placeholder.png");
         $("#action-buttons-left").show();
@@ -926,34 +926,11 @@ $(document).ready(function () {
         isGameInProgress = true;
         $("#imageFileToLoadLeft").val('');
         $("#imageFileToLoadRight").val('');
+        player1Health = 100;
         $("#health-left").attr("aria-valuenow", 100);
         $("#health-left").css("width", "100%");
         $("#health-left").html("100%");
-        $("#health-right").attr("aria-valuenow", 100);
-        $("#health-right").css("width", "100%");
-        $("#health-right").html("100%");
-    }
-
-    function restartGame() {
-        mapButtons.show();
-        $(".input-group").show();
-        $("#inputFileToLoadLeft").show();
-        $("#inputFileToLoadRight").show();
-        $("#upload-button-left").show();
-        $("#upload-button-right").show();
-        $("#announcement").html("FACE OFF!");
-        $("#subAnnouncement").html("");
-        $("body").css('background', 'linear-gradient(white, rgb(25, 25, 184))');
-        $("#image-left").attr('src', "./assets/images/Player Picture Placeholder.png");
-        $("#image-right").attr('src', "./assets/images/Player Picture Placeholder.png");
-        $("#action-button-left").show();
-        $("#action-button-right").show();
-        isGameInProgress = true;
-        $("#imageFileToLoadLeft").val('');
-        $("#imageFileToLoadRight").val('');
-        $("#health-left").attr("aria-valuenow", 100);
-        $("#health-left").css("width", "100%");
-        $("#health-left").html("100%");
+        player2Health = 100;
         $("#health-right").attr("aria-valuenow", 100);
         $("#health-right").css("width", "100%");
         $("#health-right").html("100%");
@@ -966,10 +943,28 @@ $(document).ready(function () {
             // Update Players wins/losses
             player1Losses++;
             player2Wins++;
+
+            var player1 = {
+                name: player1Name,
+                wins: player1Wins,
+                losses: player1Losses
+            }
+    
+            database.ref().child("Player 1").set(player1);
+
+            var player2 = {
+                name: player2Name,
+                wins: player2Wins,
+                losses: player2Losses
+            }
+    
+            database.ref().child("Player 2").set(player2);
+
             // Call the Play Again button to show
             restartButton.show();
             isGameInProgress = false;
 
+            $("#announcement").html(player2Name + " puts on a show against " + player1Name + " in the Face Off!");
             $("#action-buttons-left").html("");
             $("#action-buttons-right").html("");
             console.log("Game ended!");
@@ -980,13 +975,53 @@ $(document).ready(function () {
             // Update Players wins/losses
             player1Wins++;
             player2Losses++;
+
+            var player1 = {
+                name: player1Name,
+                wins: player1Wins,
+                losses: player1Losses
+            }
+    
+            database.ref().child("Player 1").set(player1);
+
+            var player2 = {
+                name: player2Name,
+                wins: player2Wins,
+                losses: player2Losses
+            }
+    
+            database.ref().child("Player 2").set(player2);
             // Call the Play Again button to show
             restartButton.show();
             isGameInProgress = false;
 
+            $("#announcement").html(player1Name + " puts on a show against " + player2Name + " in the Face Off!");
             $("#action-buttons-left").html("");
             $("#action-buttons-right").html("");
             console.log("Game ended!");
         }
     }
+
+    function animation1Functions() {
+        if (player1Health <= 25 && player1Health > 0) {
+            $("#image-left").effect("pulsate", { times: 5 }, 1500);
+        }
+    }
+
+    function animation2Functions() {
+        if (player2Health <= 25 && player2Health > 0) {
+            $("#image-right").effect("pulsate", { times: 5 }, 1500);
+        }
+    }
+
+    /*
+    // This replaces the entire id, so we decided not to use it
+    if (player1Health <= 0) {
+        $("#image-left").effect("explode", {pieces: 81}, 2500);
+    }
+    else if (player1Health > 0 && player2Health <= 0) {
+        $("#image-right").effect("explode", {pieces: 81}, 2500);
+    }
+    */
+    startGame();
 })

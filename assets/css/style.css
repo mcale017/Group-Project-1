@@ -2,15 +2,11 @@
     opacity: 0.9;
     background-color: #286090;
     color: white;
-    z-index: 10;
 }
 
 body {
-    background: linear-gradient(white, rgb(25, 25, 184));
+    background: linear-gradient(white, #286090) no-repeat center center fixed;
     padding-bottom: 200px;
-    background-position: center bottom;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
     background-size: cover;
 }
 
@@ -23,13 +19,32 @@ body {
     width: 100%;
 }
 
-/* To be edited */
 .action-button-left, .action-button-right {
-    margin-left: 5px;
-    margin-right: 5px;    
+    margin-left: 20px;
+    margin-right: 20px;    
+}
+
+.imgMap {
+    width: 12.5%;
+    height: auto;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
 }
 
 /* Rules related styling */ 
+.example-button {
+    margin-left: 10px;   
+}
+
+tr {
+    color: #286090;
+}
+
+#rules-on-button {
+    color: #286090;
+    background-color: #ffffff;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -60,8 +75,9 @@ body {
     color: #286090;
 }
 
-.modal-content p {
+.modal-content li, p {
     color: #286090;
+    font-size: 20px;
 }
 
 #rules-off-button {

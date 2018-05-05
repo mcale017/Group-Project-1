@@ -13,6 +13,9 @@
 
     <!-- Linking style.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- Linking jquery-ui.css -->
+    <link href="assets/css/jquery-ui.css">
 </head>
 
 <body>
@@ -21,14 +24,31 @@
             <button id="rules-off-button" class="btn btn-lg">&times;</button>
             <h2>Rules</h2>
             <hr>
-            <p>Hello</p>
+            <ul style="list-style-type:disc">
+                <li>Users may enter their own name to take over either player 1 or player 2's spot in the game.</li>
+                <li>Both users have the option to search an emotion to retrieve an image or upload their own for this game.</li>
+                <li>Once an image is uploaded for both users, pick a map, then click the game starting button.</li>
+                <li>There is a message box in the jumbotron that both users can read to see how the game is progressing.</li>
+                <li>Users will have 4 buttons (the first 2 will always be there) to choose their actions from:</li>
+                <br>
+                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-apple'></span></button> player regains some health</p>
+                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-pawn'></span></button> player talks... and never stops</p>
+                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-music'></span></button> player sings an awful sad song</p>
+                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-trash'></span></button> player shares garbage as food</p>
+                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-fire'></span></button> player can't contain anger</p>
+                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-sunglasses'></span></button> player performs a surprise move</p>
+                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-heart'></span></button> player gives out "nice" hugs</p>
+                <p><button class='btn btn-primary example-button' type='button'><span class='glyphicon glyphicon-eye-close'></span></button> player might be able to see ghosts</p>
+                <br>
+                <li>Winner is declared after one of the users' health is depleted to zero.</li>
+                <li>There will be a restart button available at the end of the game.</li>
         </div>
     </div>
     <div class="jumbotron">
         <div class="container text-center">
             <h1>FACE OFF!</h1>
             <br>
-            <button id="rules-on-button" class="btn btn-primary">Rules</button>
+            <button id="rules-on-button" class="btn btn-lg btn-primary">Rules</button>
             <br>
             <h3 id="announcement"></h3>
         </div>
@@ -48,6 +68,8 @@
                         </thead>
                     </table>
                     <img src="assets/images/Player Picture Placeholder.png" alt="Player 1" id="image-left">
+                    <br>
+                    <div id="action-buttons-left" class="text-center"></div>
                     <br>
                     <div class="progress">
                         <div id="health-left" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
@@ -90,6 +112,8 @@
                     </table>
                     <img src="assets/images/Player Picture Placeholder.png" alt="Player 2" id="image-right">
                     <br>
+                    <div id="action-buttons-right" class="text-center"></div>
+                    <br>
                     <div class="progress">
                         <div id="health-right" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
                             style="width: 100%;">
@@ -121,28 +145,25 @@
             </div>
         </div>
         <br>
-        <div class="row">
-            <div id="action-buttons-left" class="col-lg-6">
-
-            </div>
-            <div id="action-buttons-right" class="col-lg-6">
-
+        <div class="row mapButtons">
+            <div class="col-lg-8 col-lg-offset-2 text-center" style="background-color: white; color: #286090; font-size: 24px; padding-bottom: 24px;">
+                Choose a map
+                <br>
+                <br>
+                <img src="assets/images/map1.jpg" class="imgMap" id="mapButton1">
+                <img src="assets/images/map2.jpg" class="imgMap" id="mapButton2">
+                <img src="assets/images/map3.jpg" class="imgMap" id="mapButton3">
+                <img src="assets/images/map4.jpg" class="imgMap" id="mapButton4">
+                <img src="assets/images/map5.jpg" class="imgMap" id="mapButton5">
+                <br>
             </div>
         </div>
         <br>
-        <div class="row mapButtons">
-            <div class="col-lg-12 text-center">
-                <button type="button" class="btn btn-default" id="mapButton1">Prom</button>
-                <button type="button" class="btn btn-default" id="mapButton2">Bachelorette Party</button>
-                <button type="button" class="btn btn-default" id="mapButton3">Company Meet and Greet</button>
-                <button type="button" class="btn btn-default" id="mapButton4">Visiting Grandma</button>
-                <button type="button" class="btn btn-default" id="mapButton5">Backyard BBQ</button>
-            </div>
-        </div>
         <div class="row gameButtons">
             <div class="col-lg-12 text-center">
-                <button type="button" class="btn btn-default" id="startButton">You're Ready...Face Off!</button>
-                <button type="button" class="btn btn-default" id="restartButton">Play Again?</button>
+                <button type="button" class="btn btn-primary" id="startButton">Are you ready to FACE OFF?</button>
+                <br>
+                <button type="button" class="btn btn-primary" id="restartButton">Play Again?</button>
             </div>
         </div>
     </div>
@@ -150,6 +171,9 @@
 
     <!-- jquery script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- jquery-ui script -->
+    <script src="assets/javascript/jquery-ui.js"></script>
 
     <!-- javascript.js script -->
     <script src="assets/javascript/javascript.js"></script>
