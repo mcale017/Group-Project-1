@@ -283,7 +283,7 @@ $(document).ready(function () {
                 player1ActualButtons.push(player1TempButtons[1]);
 
                 // Appending 4 of our actual action buttons to html
-                $("#action-buttons-left").append(player1ActualButtons);
+                $("#action-buttons-left").html(player1ActualButtons);
             }).fail(function (jqXHR, textStatus) {
                 console.error(textStatus)
             })
@@ -422,7 +422,7 @@ $(document).ready(function () {
                 player2ActualButtons.push(player2TempButtons[1]);
 
                 // Appending 4 of our actual action buttons to html
-                $("#action-buttons-right").append(player2ActualButtons);
+                $("#action-buttons-right").html(player2ActualButtons);
             }).fail(function (jqXHR, textStatus) {
                 console.error(textStatus)
             })
@@ -551,7 +551,7 @@ $(document).ready(function () {
             player1ActualButtons.push(player1TempButtons[1]);
 
             // Appending 4 of our actual action buttons to html
-            $("#action-buttons-left").append(player1ActualButtons);
+            $("#action-buttons-left").html(player1ActualButtons);
         }).fail(function (jqXHR, textStatus) {
             console.error(textStatus)
         })
@@ -679,85 +679,94 @@ $(document).ready(function () {
             player2ActualButtons.push(player2TempButtons[1]);
 
             // Appending 4 of our actual action buttons to html
-            $("#action-buttons-right").append(player2ActualButtons);
+            $("#action-buttons-right").html(player2ActualButtons);
         }).fail(function (jqXHR, textStatus) {
             console.error(textStatus)
         })
     }
 
     $("#action-buttons-left").on("click", ".action-button-left", function (event) {
-        if (player1State === true) {
-            var player1ActionValue = $(this).attr("action-value");
-            var player1Action = $(this).attr("action");
+        if (isGameInProgress === true) {
+            if (player1State === true) {
+                var player1ActionValue = $(this).attr("action-value");
+                var player1Action = $(this).attr("action");
 
-            if (player1ActionValue < 0) {
-                if ($("#health-left").attr("aria-valuenow") < 100) {
-                    $("#health-left").attr("aria-valuenow", $("#health-left").attr("aria-valuenow") - player1ActionValue);
-                    $("#health-left").css("width", $("#health-left").attr("aria-valuenow") + "%");
-                    $("#health-left").html($("#health-left").attr("aria-valuenow") + "%");
+                if (player1ActionValue < 0) {
+                    if ($("#health-left").attr("aria-valuenow") < 100) {
+                        $("#health-left").attr("aria-valuenow", $("#health-left").attr("aria-valuenow") - player1ActionValue);
+                        $("#health-left").css("width", $("#health-left").attr("aria-valuenow") + "%");
+                        $("#health-left").html($("#health-left").attr("aria-valuenow") + "%");
+                        $("#announcement").html(player1Name + player1Action);
+                    } else {
+                        $("#announcement").html(player1Name + ", you're already 100%, don't be silly");
+                        switchActionState();
+                    }
+                    player1Health = $("#health-left").attr("aria-valuenow");
+                } else {
+                    $("#health-right").attr("aria-valuenow", $("#health-right").attr("aria-valuenow") - player1ActionValue);
+                    $("#health-right").css("width", $("#health-right").attr("aria-valuenow") + "%");
+                    if ($("#health-right").attr("aria-valuenow") > 0) {
+                        $("#health-right").html($("#health-right").attr("aria-valuenow") + "%");
+                    } else {
+                        $("#health-right").html("");
+                    }
+                    player2Health = $("#health-right").attr("aria-valuenow");
                     $("#announcement").html(player1Name + player1Action);
-                } else {
-                    $("#announcement").html(player1Name + ", you're already 100%, don't be silly");
-                    switchActionState();
                 }
-                player1Health = $("#health-left").attr("aria-valuenow");
+                switchActionState();
+
+                animation2Functions();
+
+                endOfGame();
             } else {
-                $("#health-right").attr("aria-valuenow", $("#health-right").attr("aria-valuenow") - player1ActionValue);
-                $("#health-right").css("width", $("#health-right").attr("aria-valuenow") + "%");
-                if ($("#health-right").attr("aria-valuenow") > 0) {
-                    $("#health-right").html($("#health-right").attr("aria-valuenow") + "%");
-                } else {
-                    $("#health-right").html("");
-                }
-                player2Health = $("#health-right").attr("aria-valuenow");
-                $("#announcement").html(player1Name + player1Action);
+                $("#announcement").html("It's not your turn, " + player1Name);
             }
-            switchActionState();
-
-            animation2Functions();
-
-            endOfGame();
         } else {
-            $("#announcement").html("It's not your turn, " + player1Name);
+            $("#announcement").html("Please start the game before you click on any of your action buttons");
         }
     })
 
     $("#action-buttons-right").on("click", ".action-button-right", function (event) {
-        if (player2State === true) {
-            var player2ActionValue = $(this).attr("action-value");
-            var player2Action = $(this).attr("action");
+        if (isGameInProgress === true) {
+            if (player2State === true) {
+                var player2ActionValue = $(this).attr("action-value");
+                var player2Action = $(this).attr("action");
 
-            if (player2ActionValue < 0) {
-                if ($("#health-right").attr("aria-valuenow") < 100) {
-                    $("#health-right").attr("aria-valuenow", $("#health-right").attr("aria-valuenow") - player2ActionValue);
-                    $("#health-right").css("width", $("#health-right").attr("aria-valuenow") + "%");
-                    $("#health-right").html($("#health-right").attr("aria-valuenow") + "%");
+                if (player2ActionValue < 0) {
+                    if ($("#health-right").attr("aria-valuenow") < 100) {
+                        $("#health-right").attr("aria-valuenow", $("#health-right").attr("aria-valuenow") - player2ActionValue);
+                        $("#health-right").css("width", $("#health-right").attr("aria-valuenow") + "%");
+                        $("#health-right").html($("#health-right").attr("aria-valuenow") + "%");
+                        $("#announcement").html(player2Name + player2Action);
+                    } else {
+                        $("#announcement").html(player2Name + ", you're already 100%, don't be silly.");
+                        switchActionState();
+                    }
+                    player2Health = $("#health-right").attr("aria-valuenow");
+                } else {
+                    $("#health-left").attr("aria-valuenow", $("#health-left").attr("aria-valuenow") - player2ActionValue);
+                    $("#health-left").css("width", $("#health-left").attr("aria-valuenow") + "%");
+                    if ($("#health-left").attr("aria-valuenow") > 0) {
+                        $("#health-left").html($("#health-left").attr("aria-valuenow") + "%");
+                    } else {
+                        $("#health-left").html("");
+                    }
+                    player1Health = $("#health-left").attr("aria-valuenow");
                     $("#announcement").html(player2Name + player2Action);
-                } else {
-                    $("#announcement").html(player2Name + ", you're already 100%, don't be silly.");
-                    switchActionState();
                 }
-                player2Health = $("#health-right").attr("aria-valuenow");
+                switchActionState();
+
+                animation1Functions();
+
+                endOfGame();
             } else {
-                $("#health-left").attr("aria-valuenow", $("#health-left").attr("aria-valuenow") - player2ActionValue);
-                $("#health-left").css("width", $("#health-left").attr("aria-valuenow") + "%");
-                if ($("#health-left").attr("aria-valuenow") > 0) {
-                    $("#health-left").html($("#health-left").attr("aria-valuenow") + "%");
-                } else {
-                    $("#health-left").html("");
-                }
-                player1Health = $("#health-left").attr("aria-valuenow");
-                $("#announcement").html(player2Name + player2Action);
+                $("#announcement").html("It's not your turn, " + player2Name);
             }
-            switchActionState();
-
-            animation1Functions();
-
-            endOfGame();
         } else {
-            $("#announcement").html("It's not your turn, " + player2Name);
+            $("#announcement").html("Please start the game before you click on any of your action buttons");
         }
     })
+
 
     // Functions that upload images from chosen files
     function selectImageLeft() {
@@ -769,7 +778,7 @@ $(document).ready(function () {
         var loadFileButton = document.createElement("button");
         loadFileButton.id = "upload-button-left";
         loadFileButton.onclick = loadImageFileAsURLLeft;
-        loadFileButton.textContent = "Use this instead!";
+        loadFileButton.textContent = "Upload";
         $("#caption-left").append(loadFileButton);
     }
 
@@ -799,7 +808,7 @@ $(document).ready(function () {
         var loadFileButton = document.createElement("button");
         loadFileButton.id = "upload-button-right";
         loadFileButton.onclick = loadImageFileAsURLRight;
-        loadFileButton.textContent = "Use this instead!";
+        loadFileButton.textContent = "Upload";
         $("#caption-right").append(loadFileButton);
     }
 
@@ -895,6 +904,7 @@ $(document).ready(function () {
     startButton.on("click", function () {
         mapButtons.hide();
         startButton.hide();
+        isGameInProgress = true;
         $(".input-group").hide();
         $("#inputFileToLoadLeft").hide();
         $("#inputFileToLoadRight").hide();
@@ -949,7 +959,7 @@ $(document).ready(function () {
                 wins: player1Wins,
                 losses: player1Losses
             }
-    
+
             database.ref().child("Player 1").set(player1);
 
             var player2 = {
@@ -957,7 +967,7 @@ $(document).ready(function () {
                 wins: player2Wins,
                 losses: player2Losses
             }
-    
+
             database.ref().child("Player 2").set(player2);
 
             // Call the Play Again button to show
@@ -981,7 +991,7 @@ $(document).ready(function () {
                 wins: player1Wins,
                 losses: player1Losses
             }
-    
+
             database.ref().child("Player 1").set(player1);
 
             var player2 = {
@@ -989,7 +999,7 @@ $(document).ready(function () {
                 wins: player2Wins,
                 losses: player2Losses
             }
-    
+
             database.ref().child("Player 2").set(player2);
             // Call the Play Again button to show
             restartButton.show();
@@ -1023,5 +1033,4 @@ $(document).ready(function () {
         $("#image-right").effect("explode", {pieces: 81}, 2500);
     }
     */
-    startGame();
 })

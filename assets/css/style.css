@@ -31,6 +31,12 @@ body {
     margin-right: 2.5%;
 }
 
+/* Trial */
+.file {
+    visibility: hidden;
+    position: absolute;
+}
+
 /* Rules related styling */ 
 .example-button {
     margin-left: 10px;   
