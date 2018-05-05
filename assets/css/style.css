@@ -1,6 +1,14 @@
+.jumbotron {
+    opacity: 0.9;
+}
+
 body {
     background: linear-gradient(white, rgb(25, 25, 184));
     padding-bottom: 200px;
+    background-position: center bottom;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #image-left, #image-right {
