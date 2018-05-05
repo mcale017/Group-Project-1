@@ -21,6 +21,12 @@ $(document).ready(function () {
     var restartButton = $("#restartButton");
     var isGameInProgress = false;
 
+    restartButton.hide();
+    /*
+    $("#action-buttons-left").hide();
+    $("#action-buttons-right").hide();
+    */
+
     // Functions to generate buttons to choose an image file and upload that image file to use in this app
     selectImageLeft();
 
@@ -29,6 +35,15 @@ $(document).ready(function () {
     selectImageRight();
 
     loadImageFileAsURLRight();
+
+    // Rules Button
+    var modal = $("#rules")
+    $("#rules-on-button").on("click", function() {
+        modal[0].style.display = "block";
+    })
+    $("#rules-off-button").on("click", function() {
+        modal[0].style.display = "none";
+    })
 
     // Firebase side of the code
     var config = {
@@ -43,7 +58,7 @@ $(document).ready(function () {
     firebase.initializeApp(config);
 
     var database = firebase.database();
-    
+
     function retrievePlayer1() {
         return database.ref("Player 1").once('value').then(function (snapshot) {
             if (snapshot.exists()) {
@@ -52,8 +67,8 @@ $(document).ready(function () {
                 player1Losses = snapshot.val().losses;
 
                 $("#player1-name").text(player1Name);
-                $("#player1-wins").text(player1Wins);
-                $("#player1-losses").text(player1Losses);
+                $("#player1-wins").text("W: " + player1Wins);
+                $("#player1-losses").text("L: " + player1Losses);
             }
             else {
                 console.log("Player 1 isn't entered in yet");
@@ -69,8 +84,8 @@ $(document).ready(function () {
                 player2Losses = snapshot.val().losses;
 
                 $("#player2-name").text(player2Name);
-                $("#player2-wins").text(player2Wins);
-                $("#player2-losses").text(player2Losses);
+                $("#player2-wins").text("W: " + player2Wins);
+                $("#player2-losses").text("L: " + player2Losses);
             }
             else {
                 console.log("Player 2 isn't entered in yet");
@@ -121,16 +136,16 @@ $(document).ready(function () {
     database.ref().child("Player 1").on("value", function (snapshot) {
         if (snapshot.exists()) {
             $("#player1-name").text(snapshot.val().name);
-            $("#player1-wins").text(snapshot.val().wins);
-            $("#player1-losses").text(snapshot.val().losses);
+            $("#player1-wins").text("W: " + snapshot.val().wins);
+            $("#player1-losses").text("L: " + snapshot.val().losses);
         }
     })
 
     database.ref().child("Player 2").on("value", function (snapshot) {
         if (snapshot.exists()) {
             $("#player2-name").text(snapshot.val().name);
-            $("#player2-wins").text(snapshot.val().wins);
-            $("#player2-losses").text(snapshot.val().losses);
+            $("#player2-wins").text("W: " + snapshot.val().wins);
+            $("#player2-losses").text("L: " + snapshot.val().losses);
         }
     })
 
@@ -670,7 +685,6 @@ $(document).ready(function () {
         })
     }
 
-
     $("#action-buttons-left").on("click", ".action-button-left", function (event) {
         if (player1State === true) {
             var player1ActionValue = $(this).attr("action-value");
@@ -686,6 +700,7 @@ $(document).ready(function () {
                     $("#announcement").html(player1Name + ", you're already 100%, don't be silly");
                     switchActionState();
                 }
+                player1Health = $("#health-left").attr("aria-valuenow");
             } else {
                 $("#health-right").attr("aria-valuenow", $("#health-right").attr("aria-valuenow") - player1ActionValue);
                 $("#health-right").css("width", $("#health-right").attr("aria-valuenow") + "%");
@@ -694,9 +709,9 @@ $(document).ready(function () {
                 } else {
                     $("#health-right").html("");
                 }
+                player2Health = $("#health-right").attr("aria-valuenow");
                 $("#announcement").html(player1Name + player1Action);
             }
-
             switchActionState();
 
             endOfGame();
@@ -709,7 +724,7 @@ $(document).ready(function () {
         if (player2State === true) {
             var player2ActionValue = $(this).attr("action-value");
             var player2Action = $(this).attr("action");
-            
+
             if (player2ActionValue < 0) {
                 if ($("#health-right").attr("aria-valuenow") < 100) {
                     $("#health-right").attr("aria-valuenow", $("#health-right").attr("aria-valuenow") - player2ActionValue);
@@ -718,8 +733,9 @@ $(document).ready(function () {
                     $("#announcement").html(player2Name + player2Action);
                 } else {
                     $("#announcement").html(player2Name + ", you're already 100%, don't be silly.");
-                    swithActionState();
+                    switchActionState();
                 }
+                player2Health = $("#health-right").attr("aria-valuenow");
             } else {
                 $("#health-left").attr("aria-valuenow", $("#health-left").attr("aria-valuenow") - player2ActionValue);
                 $("#health-left").css("width", $("#health-left").attr("aria-valuenow") + "%");
@@ -728,9 +744,9 @@ $(document).ready(function () {
                 } else {
                     $("#health-left").html("");
                 }
+                player1Health = $("#health-left").attr("aria-valuenow");
                 $("#announcement").html(player2Name + player2Action);
             }
-
             switchActionState();
 
             endOfGame();
@@ -738,12 +754,6 @@ $(document).ready(function () {
             $("#announcement").html("It's not your turn, " + player2Name);
         }
     })
-
-    // Function that empties out the announcement section
-    function emptyAnnouncement() {
-        $("#announcement").fadeOut().empty();
-    }
-
 
     // Functions that upload images from chosen files
     function selectImageLeft() {
@@ -894,12 +904,12 @@ $(document).ready(function () {
     })
 
     restartButton.on("click", function () {
-        startGame();
+        restartGame();
     })
 
     // Function called to start/restart the game
     function startGame() {
-        gameButtons.hide();
+        startButton.hide();
         mapButtons.show();
         $(".input-group").show();
         $("#inputFileToLoadLeft").show();
@@ -911,22 +921,46 @@ $(document).ready(function () {
         $("body").css('background', 'linear-gradient(white, rgb(25, 25, 184))');
         $("#image-left").attr('src', "./assets/images/Player Picture Placeholder.png");
         $("#image-right").attr('src', "./assets/images/Player Picture Placeholder.png");
-        $(".action-button-left").remove();
-        $(".action-button-right").remove();
+        $("#action-buttons-left").show();
+        $("#action-buttons-right").show();
         isGameInProgress = true;
         $("#imageFileToLoadLeft").val('');
         $("#imageFileToLoadRight").val('');
+        $("#health-left").attr("aria-valuenow", 100);
+        $("#health-left").css("width", "100%");
+        $("#health-left").html("100%");
+        $("#health-right").attr("aria-valuenow", 100);
+        $("#health-right").css("width", "100%");
+        $("#health-right").html("100%");
+    }
+
+    function restartGame() {
+        mapButtons.show();
+        $(".input-group").show();
+        $("#inputFileToLoadLeft").show();
+        $("#inputFileToLoadRight").show();
+        $("#upload-button-left").show();
+        $("#upload-button-right").show();
+        $("#announcement").html("FACE OFF!");
+        $("#subAnnouncement").html("");
+        $("body").css('background', 'linear-gradient(white, rgb(25, 25, 184))');
+        $("#image-left").attr('src', "./assets/images/Player Picture Placeholder.png");
+        $("#image-right").attr('src', "./assets/images/Player Picture Placeholder.png");
+        $("#action-button-left").show();
+        $("#action-button-right").show();
+        isGameInProgress = true;
+        $("#imageFileToLoadLeft").val('');
+        $("#imageFileToLoadRight").val('');
+        $("#health-left").attr("aria-valuenow", 100);
+        $("#health-left").css("width", "100%");
+        $("#health-left").html("100%");
+        $("#health-right").attr("aria-valuenow", 100);
+        $("#health-right").css("width", "100%");
+        $("#health-right").html("100%");
     }
 
     // End of game function
     function endOfGame() {
-        // If health is still above 0 for both players
-        if (!isGameInProgress) {
-            return;
-
-            console.log("Game's still going!");
-        }
-
         // If player 1 health is at or below 0
         if (player1Health <= 0 && player2Health > 0) {
             // Update Players wins/losses
@@ -936,11 +970,13 @@ $(document).ready(function () {
             restartButton.show();
             isGameInProgress = false;
 
+            $("#action-buttons-left").html("");
+            $("#action-buttons-right").html("");
             console.log("Game ended!");
         }
 
         // If player 2 health is at or below 0
-        if (player1Health > 0 && player2Health <= 0) {
+        else if (player1Health > 0 && player2Health <= 0) {
             // Update Players wins/losses
             player1Wins++;
             player2Losses++;
@@ -948,6 +984,8 @@ $(document).ready(function () {
             restartButton.show();
             isGameInProgress = false;
 
+            $("#action-buttons-left").html("");
+            $("#action-buttons-right").html("");
             console.log("Game ended!");
         }
     }

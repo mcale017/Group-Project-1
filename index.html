@@ -16,9 +16,19 @@
 </head>
 
 <body>
+    <div id="rules" class="modal">
+        <div class="modal-content">
+            <button id="rules-off-button" class="btn btn-lg">&times;</button>
+            <h2>Rules</h2>
+            <hr>
+            <p>Hello</p>
+        </div>
+    </div>
     <div class="jumbotron">
         <div class="container text-center">
             <h1>FACE OFF!</h1>
+            <br>
+            <button id="rules-on-button" class="btn btn-primary">Rules</button>
             <br>
             <h3 id="announcement"></h3>
         </div>
@@ -28,6 +38,15 @@
         <div class="row">
             <div class="col-lg-4 col-lg-offset-1">
                 <div class="thumbnail">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th id="player1-name"></th>
+                                <th id="player1-wins"></th>
+                                <th id="player1-losses"></th>
+                            </tr>
+                        </thead>
+                    </table>
                     <img src="assets/images/Player Picture Placeholder.png" alt="Player 1" id="image-left">
                     <br>
                     <div class="progress">
@@ -39,12 +58,20 @@
                     <div id="caption-left" class="caption">
                         <div class="input-group">
                             <input aria-describedby="add-player1" placeholder="Enter your name..." type="text" class="form-control" id="player1-name-submit">
-                            <span class="input-group-btn"><button class="btn btn-primary" type="button" id="add-player1"><span class="glyphicon glyphicon-search"></span></button></span>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" id="add-player1">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
                         </div>
                         <br>
                         <div class="input-group">
                             <input aria-describedby="submit-button-left" placeholder="Search online" type="text" class="form-control" id="search-area-left">
-                            <span class="input-group-btn"><button class="btn btn-primary" type="button" id="submit-button-left"><span class="glyphicon glyphicon-search"></span></button></span>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" id="submit-button-left">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
                         </div>
                         <br>
                     </div>
@@ -52,10 +79,20 @@
             </div>
             <div class="col-lg-4 col-lg-offset-2">
                 <div class="thumbnail">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th id="player2-name"></th>
+                                <th id="player2-wins"></th>
+                                <th id="player2-losses"></th>
+                            </tr>
+                        </thead>
+                    </table>
                     <img src="assets/images/Player Picture Placeholder.png" alt="Player 2" id="image-right">
                     <br>
                     <div class="progress">
-                        <div id="health-right" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                        <div id="health-right" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                            style="width: 100%;">
                             100%
                         </div>
                     </div>
@@ -63,32 +100,24 @@
                     <div id="caption-right" class="caption">
                         <div class="input-group">
                             <input aria-describedby="add-player2" placeholder="Enter your name..." type="text" class="form-control" id="player2-name-submit">
-                            <span class="input-group-btn"><button class="btn btn-primary" type="button" id="add-player2"><span class="glyphicon glyphicon-search"></span></button></span>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" id="add-player2">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
                         </div>
                         <br>
                         <div class="input-group">
                             <input aria-describedby="submit-button-right" placeholder="Search online" type="text" class="form-control" id="search-area-right">
-                            <span class="input-group-btn"><button class="btn btn-primary" type="button" id="submit-button-right"><span class="glyphicon glyphicon-search"></span></button></span>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" id="submit-button-right">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
                         </div>
                         <br>
                     </div>
                 </div>
-            </div>
-        </div>
-        <br>
-        <!-- Map buttons -->
-        <div class="row">
-            <div class="col-lg-6">
-                <!-- move this up to images -->
-                <div id="player1-name"></div>
-                <div id="player1-wins"></div>
-                <div id="player1-losses"></div>
-            </div>
-            <div class="col-lg-6">
-                <!-- move this up to images -->
-                <div id="player2-name"></div>
-                <div id="player2-wins"></div>
-                <div id="player2-losses"></div>
             </div>
         </div>
         <br>
@@ -110,16 +139,14 @@
                 <button type="button" class="btn btn-default" id="mapButton5">Backyard BBQ</button>
             </div>
         </div>
-    <!--
         <div class="row gameButtons">
             <div class="col-lg-12 text-center">
                 <button type="button" class="btn btn-default" id="startButton">You're Ready...Face Off!</button>
                 <button type="button" class="btn btn-default" id="restartButton">Play Again?</button>
             </div>
         </div>
-    -->
     </div>
-    
+
 
     <!-- jquery script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
