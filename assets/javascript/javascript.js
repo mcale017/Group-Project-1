@@ -933,7 +933,7 @@ $(document).ready(function () {
         $("#image-right").attr('src', "./assets/images/Player Picture Placeholder.png");
         $("#action-buttons-left").show();
         $("#action-buttons-right").show();
-        isGameInProgress = true;
+        isGameInProgress = false;
         $("#imageFileToLoadLeft").val('');
         $("#imageFileToLoadRight").val('');
         player1Health = 100;
